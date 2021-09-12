@@ -1,4 +1,4 @@
-# Your team introduction
+# Team 1 Introduction
 
 Each student should add a separate paragraph to introduce yourself.
 
@@ -10,3 +10,6 @@ Hello, My name is Kyle and I'm a student in the software development program. I'
 
 ## Aidan Duffy
 Hi all! My name is Aidan, and I am enrolled in the MSSD program. I work as a software engineer and security analyst for the US Deptartment of Defense near Washington, DC. I have worked there for 2 years and before that I got my undergraduate degree in electrical engineering & computer science from UC Berekeley. I love movies, cooking, and my new pup Penny.
+
+## Jean Shalenkova
+Hello everyone! My name is Jean (pronouns: they/them) and I am pursuing the MS in Software Development. I work as a high school computer science teacher in Newark, NJ. Previously, I received a BA in Photojournalism at Temple University in Philadelphia and worked as a freelance visual specialist. Programming has always been a hobby of mine, and being accepted into BU's MSSD program last year was very exciting. In my free time I play bass in a punk band, experiment in the kitchen, and knit and watch TV shows with my cat Cairo.
