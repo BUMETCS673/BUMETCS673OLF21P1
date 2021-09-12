@@ -15,3 +15,6 @@ Hi all! My name is Aidan, and I am enrolled in the MSSD program. I work as a sof
 ## Jean Shalenkova
 Hello everyone! My name is Jean (pronouns: they/them) and I am pursuing the MS in Software Development. I work as a high school computer science teacher in Newark, NJ. Previously, I received a BA in Photojournalism at Temple University in Philadelphia and worked as a freelance visual specialist. Programming has always been a hobby of mine, and being accepted into BU's MSSD program last year was very exciting. In my free time I play bass in a punk band, experiment in the kitchen, and knit and watch TV shows with my cat Cairo.
 
+## Justin Fanning
+
+Hey all! My name is Justin Fanning, and I'm currently enrolled in my fifth class of the MS in Software Development program. My undergraduate degree was in mechanical engineering and I have a background in process automation and development. Taking on programming tasks here is what brought me to the BU program. I currently live a bit outside of Boston, in Arlington MA. Outside of work/class i love to bike, hike,  bake, and garden. 
