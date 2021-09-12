@@ -2,6 +2,7 @@
 
 Each student should add a separate paragraph to introduce yourself.
 
+
 ## Yanru (Grace) Zhu
 Hi everyone! This is Yanru (Grace) and I’m currently enrolled in the Software Development program.<br>I graduated from BU a few years ago with a Master’s in Advertising so I was happy to be back to BU again! <br>I’m currently working at Stitch Fix being an Email Developer and during life I love walking my dog Dodo. 
 
@@ -13,3 +14,4 @@ Hi all! My name is Aidan, and I am enrolled in the MSSD program. I work as a sof
 
 ## Jean Shalenkova
 Hello everyone! My name is Jean (pronouns: they/them) and I am pursuing the MS in Software Development. I work as a high school computer science teacher in Newark, NJ. Previously, I received a BA in Photojournalism at Temple University in Philadelphia and worked as a freelance visual specialist. Programming has always been a hobby of mine, and being accepted into BU's MSSD program last year was very exciting. In my free time I play bass in a punk band, experiment in the kitchen, and knit and watch TV shows with my cat Cairo.
+
