@@ -1,0 +1,53 @@
+{% include "head.html" %}
+
+    <main style="margin-bottom:40px;margin-top:3%">
+        <section class="intro-container">
+            <h1>Welcome to Cheffy</h1>
+            <p style="margin-bottom:1px;">Search recipes by ingredients you have on hand!</p>
+            <p style="font-size:12px;margin-top:5px;">(Separate ingredients by comma, no spaces)</p>
+            <form action="/recipe" method="POST">
+
+                <div class="search-box">
+                    <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
+                    <button type="submit"><i class="fa fa-search"></i>Search</button>
+                </div>
+                <div class="options">
+                    <div class="diet-option">
+                        <span>I am...</span>
+
+                        <input type="radio" id="vegan" name="diet" value="vegan" checked><label for="vegan">Vegan</label>
+
+                        <input type="radio" id="vegetarian" name="diet" value="vegetarian"><label for="vegetarian">Vegetarian</label>
+
+                        <input type="radio" id="ketogenic" name="diet" value="vegetarian"><label for="ketogenic">Ketogenic</label>
+
+                        <input type="radio" id="all" name="diet" value="all"><label for="all">I eat everything</label>
+                    </div>
+                    <div class="intolerance">
+                        <span>I cannot eat...</span>
+                        <input type="radio" id="gluten" name="intolerance" value="gluten"><label for="gluten">gluten</label>
+
+                        <input type="radio" id="shellfish" name="intolerance" value="shellfish"><label for="shellfish">shellfish</label>
+
+                        <input type="radio" id="no-intol" name="intolerance" value="no-intol" checked><label for="no-pref">No intolerance</label>
+                    </div>
+                </div>
+
+            </form>
+        </section>
+    </main>
+
+
+
+    <div class="recipe-container" style="margin-bottom:80px">
+        {% for hit in hits %}
+      <div class="recipe">
+          <a href="{{hit.results.url}}" target="_blank"><img class="image" src="{{hit.results.image}}"></a>
+          <section class="details">
+            <h2 class="name"><a href="{{hit.results.url}}" target="_blank">{{hit}.recipe.title}}</a></h2>
+          </section>
+      </div>
+        {% endfor %}
+    </div>
+
+{% include "foot.html" %}
