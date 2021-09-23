@@ -20,10 +20,10 @@ def about():
 def showRecipes():
     ingredients = request.args.get('ingredients')
     diet = request.args.get('diet')
-    intolerance = request.args.get('intolerance')
-    hits = searchRecipes(ingredients, diet, intolerance)
+    intolerances = request.args.get('intolerances')
+    results = searchRecipes(ingredients, diet, intolerances)
     # set second argument to pass the data
-    return render_template('recipe.html', hits=hits)
+    return render_template('recipe.html', results=results)
 
 # test module import
 if __name__ == "__main__":
