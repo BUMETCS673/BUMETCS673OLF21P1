@@ -1,0 +1,10 @@
+# Reference: https://docs.docker.com/compose/gettingstarted/
+# Usage: docker-compose up --build
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./.flaskenv

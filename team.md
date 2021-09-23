@@ -18,3 +18,6 @@ Hello everyone! My name is Jean (pronouns: they/them) and I am pursuing the MS i
 ## Justin Fanning
 
 Hey all! My name is Justin Fanning, and I'm currently enrolled in my fifth class of the MS in Software Development program. My undergraduate degree was in mechanical engineering and I have a background in process automation and development. Taking on programming tasks here is what brought me to the BU program. I currently live a bit outside of Boston, in Arlington MA. Outside of work/class i love to bike, hike,  bake, and garden. 
+
+## Andrew Fish
+Hello everyone! My name is Andrew Fish and I am pursuing the MS in Computer Science. My undergraduate degree was Accounting at Elon University with minors in Computer Science and Data Science. I have always had an interest in programming which led me here. I currently live in Boston and I like to play basketball and take my dog on walks in my free time
