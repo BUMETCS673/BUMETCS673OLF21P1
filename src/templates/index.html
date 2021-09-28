@@ -32,6 +32,15 @@
                         <input type="radio" id="no-intol" name="intolerances" value="no-intol" checked><label for="no-pref">No intolerances</label>
                     </div>
                 </div>
+            <p style="margin-bottom:1px;">Alternatively, you can search for a recipe by name (separate words with a comma not space):</p>
+            </form>
+
+            <form action="/getRecipeByName">
+
+                <div class="search-box">
+                    <input type="text" placeholder="e.g. Broiled Salmon" name="recipeName">
+                    <button type="submit"><i class="fa fa-search"></i>Search</button>
+                </div>
 
             </form>
         </section>

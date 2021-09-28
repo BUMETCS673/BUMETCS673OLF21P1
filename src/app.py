@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from spoon import searchRecipes
+from findSpecificRecipe import searchForRecipe
 
 # flask class instance
 app = Flask(__name__)
@@ -22,9 +23,18 @@ def showRecipes():
     diet = request.args.get('diet')
     intolerances = request.args.get('intolerances')
     results = searchRecipes(ingredients, diet, intolerances)
+    print("ran wrong function")
     # set second argument to pass the data
     return render_template('recipe.html', results=results)
 
+@app.route("/getRecipeByName")
+def getRecipeByName():
+    recipe_name = request.args.get('recipeName')
+    recipe_results = searchForRecipe(recipe_name)
+
+    return render_template('recipe.html', results=recipe_results)
+
+
 # test module import
 if __name__ == "__main__":
-    app.run(debug = True)
+    app.run(debug=True)
