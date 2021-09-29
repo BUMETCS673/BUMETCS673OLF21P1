@@ -1,0 +1,17 @@
+{% include "index.html" %}
+
+    <div class="recipe-container" style="margin-bottom:80px">
+
+      <div class="recipe">
+            <table>
+            {% for key, value in results.items() %}
+               <tr>
+                    <th> {{ key }} </th>
+                    <td> {{ value }} </td>
+               </tr>
+            {% endfor %}
+            </table>
+      </div>
+    </div>
+
+{% include "foot.html" %}

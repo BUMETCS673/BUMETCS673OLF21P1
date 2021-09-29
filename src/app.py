@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from spoon import searchRecipes
-from findSpecificRecipe import searchForRecipe
+from findSpecificRecipe import searchForRecipe, getRecipeInformation
 
 # flask class instance
 app = Flask(__name__)
@@ -33,6 +33,13 @@ def getRecipeByName():
     recipe_results = searchForRecipe(recipe_name)
 
     return render_template('recipe.html', results=recipe_results)
+
+@app.route("/getRecipeIngredients")
+def getRecipeIngredients():
+    recipe_id = request.args.get('recipe_id')
+    recipe_instructions = getRecipeInformation(recipe_id)
+
+    return render_template('recipeInstructions.html', results=recipe_instructions)
 
 
 # test module import

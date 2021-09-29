@@ -6,9 +6,20 @@
           <a href="{{result.url}}" target="_blank"><img class="image" src="{{result.image}}"></a>
           <section class="details">
             <h2 class="name"><a href="{{result.url}}" target="_blank">{{result.title}}</a></h2>
+              <a style="font-size:12px;margin-top:5px;">ID: </a>
+              <a class="id"><a target="_blank">{{result.id}}</a></a>
           </section>
       </div>
         {% endfor %}
     </div>
+
+    <form action="/getRecipeIngredients">
+
+        <div class="search-box">
+            <input type="text" placeholder="Enter recipe id here" name="recipe_id">
+            <button type="submit"><i class="fa fa-search"></i>Search</button>
+        </div>
+
+    </form>
 
 {% include "foot.html" %}
