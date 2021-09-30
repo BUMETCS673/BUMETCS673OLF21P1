@@ -29,7 +29,6 @@ def showRecipes():
 
 @app.route("/recipe/<recipe_id>")
 def getRecipeDetail(recipe_id):
-    API_KEY = '9e749e7df97047c38000f0f4addb64f9'
     req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={API_KEY}'
     res = requests.get(req)
     data = res.json()
