@@ -42,9 +42,9 @@
     <div class="recipe-container" style="margin-bottom:80px">
         {% for result in results %}
       <div class="recipe">
-          <a href="{{result.url}}" target="_blank"><img class="image" src="{{result.image}}"></a>
+          <a href="/recipe/{{result.id}}"><img class="image" src="{{result.image}}"></a>
           <section class="details">
-            <h2 class="name"><a href="{{result.url}}" target="_blank">{{result.title}}</a></h2>
+            <h2 class="name"><a href="/recipe/{{result.id}}">{{result.title}}</a></h2>
           </section>
       </div>
         {% endfor %}
