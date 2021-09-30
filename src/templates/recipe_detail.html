@@ -1,0 +1,35 @@
+{% include "head.html" %}
+
+<div>
+    <div>
+        <h1>{{recipe.title}}</h1>
+        <p><a href="{{recipe.sourceUrl}}">Source</a> Read in: {{recipe.readyInMinutes}} minutes</p>
+        <img src="{{recipe.image}}" width="500px"/>
+        <p>{{recipe.summary|striptags}}</p>
+    </div>
+    <div>
+        Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif %} <br/>
+        Vegan: {% if recipe.vegan %}✅{% else %}⛔{% endif %} <br/>
+        Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif %} <br/>
+        Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{% endif %} <br/>
+        Cheap: {% if recipe.cheap %}✅{% else %}⛔{% endif %} <br/>
+        Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{% endif %} <br/>
+        Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{% endif %} <br/>
+    </div>
+    <div>
+        <h2>Ingredients</h2>
+        {% for ingredient in recipe.extendedIngredients %}
+        <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}"/>
+        <p>{{ingredient.originalString|capitalize}}</p>
+        {% endfor %}
+    </div>
+    <div>
+        <h2>Steps</h2>
+        {% for step in recipe.analyzedInstructions[0].steps %}
+        <h5>#{{step.number}}</h5>
+        <p>{{step.step}}</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% include "foot.html" %}
