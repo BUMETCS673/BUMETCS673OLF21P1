@@ -32,14 +32,15 @@
                         <input type="radio" id="no-intol" name="intolerances" value="no-intol" checked><label for="no-pref">No intolerances</label>
                     </div>
                 </div>
-            <p style="margin-bottom:1px;">Alternatively, you can search for a recipe by name (separate words with a comma not space):</p>
             </form>
 
-            <form action="/getRecipeByName">
-
+            <form action="/insertIngredient">
+                            <p style="margin-bottom:1px;">Add available ingredients by name, quantity, and expiration date in the fields below:</p>
                 <div class="search-box">
-                    <input type="text" placeholder="e.g. Broiled Salmon" name="recipeName">
-                    <button type="submit"><i class="fa fa-search"></i>Search</button>
+                    <input type="text" placeholder="e.g. carrots" name="ingredientName">
+                    <input type="text" placeholder="e.g. 2-lbs" name="ingredientQuantity">
+                    <input type="text" placeholder="e.g. 09/30/2021" name="expirationDate">
+                    <button type="submit"><i class="fa fa-search"></i>Submit</button>
                 </div>
 
             </form>
