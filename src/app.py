@@ -10,7 +10,12 @@ API_KEY = '9e749e7df97047c38000f0f4addb64f9'
 # / route will show our index template
 @app.route("/")
 def index():
-    return render_template("index.html")
+    # The following is a placeholder for creating a user's favorite recipes
+    req = f'https://api.spoonacular.com/recipes/complexSearch?query=seafood&number=3&apiKey={API_KEY}'
+    res = requests.get(req)
+    data = res.json()
+    results = data['results']
+    return render_template("index.html", results=results)
 
 # /about will show about page
 app.route("/about")
@@ -33,6 +38,21 @@ def getRecipeDetail(recipe_id):
     res = requests.get(req)
     data = res.json()
     return render_template('recipe_detail.html', recipe=data)
+
+
+@app.route("/recipe_detail")
+def getSmartRecipeRecommendation():
+    recipe_id = request.args.get('recipe_id')
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/similar?number=1&apiKey={API_KEY}'
+    res = requests.get(req)
+    data = res.json()
+    data = data[0]
+    new_id = data['id']
+    req2 = f'https://api.spoonacular.com/recipes/{new_id}/information?&apiKey={API_KEY}'
+    res2 = requests.get(req2)
+    data2 = res2.json()
+    return render_template('recipe_detail.html', recipe=data2)
+
 
 # test module import
 if __name__ == "__main__":

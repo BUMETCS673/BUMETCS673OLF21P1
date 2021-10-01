@@ -34,6 +34,28 @@
                 </div>
 
             </form>
+
+            <p style="margin-bottom:1px;">Your favorite recipes are listed below!</p>
+            <div class="recipe-container" style="margin-bottom:80px">
+                {% for result in results %}
+              <div class="recipe">
+                  <a href="/recipe/{{result.id}}"><img class="image" src="{{result.image}}"></a>
+                  <section class="details">
+                    <h2 class="name"><a href="/recipe/{{result.id}}">{{result.title}}</a></h2>
+                      Recipe ID: {{result.id}}
+                  </section>
+              </div>
+                {% endfor %}
+            </div>
+
+            <p style="font-size:12px;margin-top:5px;"></p>
+            <form action="/recipe_detail">
+                <div class="search-box">
+                    <p style="font-size:12px;margin-top:5px;">Choose from your favorites list and enter recipe ID to get similar suggestions!</p>
+                    <input type="text" placeholder="Enter recipe ID" name="recipe_id">
+                    <button type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
+                </div>
+            </form>
         </section>
     </main>
 
