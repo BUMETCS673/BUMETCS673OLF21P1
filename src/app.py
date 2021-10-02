@@ -64,7 +64,8 @@ def get_token_auth_header():
 
 
 def requires_scope(required_scope):
-    """Determines if the required scope is present in the Access Token
+    """
+    Determines if the required scope is present in the Access Token
     Args:
         required_scope (str): The scope required to access the resource
     """
@@ -79,7 +80,8 @@ def requires_scope(required_scope):
 
 
 def requires_auth(f):
-    """Determines if the Access Token is valid
+    """
+    Determines if the Access Token is valid
     """
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -130,7 +132,8 @@ def requires_auth(f):
 @app.route("/api/public")
 @cross_origin(headers=["Content-Type", "Authorization"])
 def public():
-    """No access token required to access this route
+    """
+    No access token required to access this route
     """
     response = "Hello from a public endpoint! You don't need to be authenticated to see this."
     return jsonify(message=response)
@@ -141,7 +144,8 @@ def public():
 @cross_origin(headers=["Access-Control-Allow-Origin", "http://localhost:3000"])
 @requires_auth
 def private():
-    """A valid access token is required to access this route
+    """
+    A valid access token is required to access this route
     """
     response = "Hello from a private endpoint! You need to be authenticated to see this."
     return jsonify(message=response)
@@ -152,7 +156,8 @@ def private():
 @cross_origin(headers=["Access-Control-Allow-Origin", "http://localhost:3000"])
 @requires_auth
 def private_scoped():
-    """A valid access token and an appropriate scope are required to access this route
+    """
+    A valid access token and an appropriate scope are required to access this route
     """
     if requires_scope("read:messages"):
         response = "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this."
