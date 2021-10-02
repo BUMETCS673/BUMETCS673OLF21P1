@@ -42,20 +42,16 @@
                   <a href="/recipe/{{result.id}}"><img class="image" src="{{result.image}}"></a>
                   <section class="details">
                     <h2 class="name"><a href="/recipe/{{result.id}}">{{result.title}}</a></h2>
-                      Recipe ID: {{result.id}}
+                    <form action="/recipe_detail/{{result.id}}">
+                        <div class="search-box">
+                            <param name="recipe_id" value={{result.id}}>
+                            <button type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
+                        </div>
+                    </form>
                   </section>
               </div>
                 {% endfor %}
             </div>
-
-            <p style="font-size:12px;margin-top:5px;"></p>
-            <form action="/recipe_detail">
-                <div class="search-box">
-                    <p style="font-size:12px;margin-top:5px;">Choose from your favorites list and enter recipe ID to get similar suggestions!</p>
-                    <input type="text" placeholder="Enter recipe ID" name="recipe_id">
-                    <button type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
-                </div>
-            </form>
         </section>
     </main>
 
