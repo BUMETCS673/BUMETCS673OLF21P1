@@ -8,17 +8,36 @@ from functools import wraps
 from flask_cors import cross_origin
 from jose import jwt
 from dotenv import load_dotenv, find_dotenv
+from authlib.integrations.flask_client import OAuth
+import constants
 
 # Loading in Auth0 information from environment file
 ENV_FILE = find_dotenv()
 if ENV_FILE:
     load_dotenv(ENV_FILE)
 AUTH0_DOMAIN = env.get("AUTH0_DOMAIN")
-API_ID = env.get("API_IDENTIFIER")
+AUTH0_AUDIENCE = env.get("AUTH0_IDENTIFIER")
+AUTH0_CALLBACK_URL = env.get(constants.AUTH0_CALLBACK_URL)
+AUTH0_CLIENT_ID = env.get(constants.AUTH0_CLIENT_ID)
+AUTH0_CLIENT_SECRET = env.get(constants.AUTH0_CLIENT_SECRET)
+AUTH0_BASE_URL = 'https://' + AUTH0_DOMAIN
 ALGO = ["RS256"]
 
 # flask class instance
 app = Flask(__name__)
+oauth = OAuth(app)
+auth0 = oauth.register(
+    'auth0',
+    client_id=AUTH0_CLIENT_ID,
+    client_secret=AUTH0_CLIENT_SECRET,
+    api_base_url=AUTH0_BASE_URL,
+    access_token_url=AUTH0_BASE_URL + '/oauth/token',
+    authorize_url=AUTH0_BASE_URL + '/authorize',
+    client_kwargs={
+        'scope': 'openid profile email',
+    },
+)
+
 
 # Error handler for user authorization
 class AuthError(Exception):
@@ -105,7 +124,7 @@ def requires_auth(f):
                     token,
                     rsa_key,
                     algorithms=ALGO,
-                    audience=API_ID,
+                    audience=AUTH0_AUDIENCE,
                     issuer="https://"+AUTH0_DOMAIN+"/"
                 )
             except jwt.ExpiredSignatureError:
