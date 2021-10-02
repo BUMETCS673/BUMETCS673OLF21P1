@@ -1,6 +1,12 @@
 import requests
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, _request_ctx_stack
 from spoon import searchRecipes
+import json
+from six.moves.urllib.request import urlopen
+from functools import wraps
+from flask_cors import cross_origin
+from jose import jwt
+
 
 # flask class instance
 app = Flask(__name__)
