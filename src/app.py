@@ -1,9 +1,11 @@
 import requests
-from flask import Flask, render_template, request, jsonify, _request_ctx_stack
+from flask import Flask, render_template, request, session, redirect, jsonify,\
+    _request_ctx_stack, url_for
 from spoon import searchRecipes
 from os import environ as env
 import json
 from six.moves.urllib.request import urlopen
+from six.moves.urllib.parse import urlencode
 from functools import wraps
 from flask_cors import cross_origin
 from jose import jwt
@@ -186,6 +188,7 @@ def private_scoped():
         "description": "You don't have access to this resource"
     }, 403)
 
+
 # TODO - resolve this plaintext key issue
 API_KEY = '9e749e7df97047c38000f0f4addb64f9'
 
@@ -215,6 +218,33 @@ def getRecipeDetail(recipe_id):
     res = requests.get(req)
     data = res.json()
     return render_template('recipe_detail.html', recipe=data)
+
+# Here we're using the /callback route.
+@app.route('/callback')
+def callback_handling():
+    # Handles response from token endpoint
+    auth0.authorize_access_token()
+    resp = auth0.get('userinfo')
+    userinfo = resp.json()
+
+    # Store the user information in flask session.
+    session['jwt_payload'] = userinfo
+    session['profile'] = {
+        'user_id': userinfo['sub'],
+        'name': userinfo['name'],
+        'picture': userinfo['picture']
+    }
+    return redirect('/')
+
+@app.route('/login')
+def login():
+    return auth0.authorize_redirect(redirect_uri='YOUR_CALLBACK_URL')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    params = {'returnTo': url_for('home', _external=True), 'client_id': AUTH0_CLIENT_ID}
+    return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
 
 # test module import
 if __name__ == "__main__":
