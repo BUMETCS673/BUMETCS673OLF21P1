@@ -1,17 +1,17 @@
 import requests
+import os
 
+API_KEY = os.environ.get('SPOONACULAR_API_KEY')
+BASE_URL = os.environ.get('SPOONACULAR_API_BASE_URL')
 
 def searchRecipes(ingredients, diet, intolerances):
-    # API information
-    API_KEY = '9e749e7df97047c38000f0f4addb64f9'
-    
     # basic request
-    req = f'https://api.spoonacular.com/recipes/complexSearch?includeIngredients={ingredients}&apiKey={API_KEY}'
+    req = f'{BASE_URL}/recipes/complexSearch?includeIngredients={ingredients}&apiKey={API_KEY}'
 
     if diet == 'all':
         pass  # do nothing
     else:  # either vegan, vegetarian, glutenfree, ketogenic, whole30, lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
-        req += f'&diet={diet}' 
+        req += f'&diet={diet}'
 
     if intolerances == 'no-intol':
         pass
@@ -19,8 +19,14 @@ def searchRecipes(ingredients, diet, intolerances):
         intolerances += f'&intolerances={intolerances}'
 
     res = requests.get(req)
-    data = res.json() # json decode method, turn data into a native python datatype 
+    data = res.json() # json decode method, turn data into a native python datatype
     print(data)
     results = data['results']
     print(results)
     return results
+
+
+def get_recipe_by_id(recipe_id):
+    request_url = f'{BASE_URL}/recipes/{recipe_id}/information?&apiKey={API_KEY}'
+    res = requests.get(url=request_url)
+    return res.json()

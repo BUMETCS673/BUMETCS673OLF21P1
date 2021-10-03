@@ -1,2 +1,4 @@
 FLASK_APP=app.py
 FLASK_ENV=development
+SPOONACULAR_API_BASE_URL=https://api.spoonacular.com
+SPOONACULAR_API_KEY=9e749e7df97047c38000f0f4addb64f9
