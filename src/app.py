@@ -13,7 +13,6 @@ from flask_cors import cross_origin
 from jose import jwt
 from dotenv import load_dotenv, find_dotenv
 from authlib.integrations.flask_client import OAuth
-import constants
 
 # Loading in Auth0 information from environment file
 ENV_FILE = find_dotenv()
@@ -139,7 +138,8 @@ def requires_auth(f):
                 raise AuthError({"code": "invalid_claims",
                                 "description":
                                     "incorrect claims,"
-                                    "please check the audience and issuer"}, 401)
+                                    "please check the audience and issuer"},
+                                401)
             except Exception:
                 raise AuthError({"code": "invalid_header",
                                 "description":
@@ -159,7 +159,8 @@ def public():
     """
     No access token required to access this route
     """
-    response = "Hello from a public endpoint! You don't need to be authenticated to see this."
+    response = "Hello from a public endpoint! You don't need to be" \
+               " authenticated to see this."
     return jsonify(message=response)
 
 
@@ -171,7 +172,8 @@ def private():
     """
     A valid access token is required to access this route
     """
-    response = "Hello from a private endpoint! You need to be authenticated to see this."
+    response = "Hello from a private endpoint! You need to be authenticated" \
+               " to see this."
     return jsonify(message=response)
 
 
@@ -184,7 +186,9 @@ def private_scoped():
     A valid access token and an appropriate scope are required to access this route
     """
     if requires_scope("read:messages"):
-        response = "Hello from a private endpoint! You need to be authenticated and have a scope of read:messages to see this."
+        response = "Hello from a private endpoint! You need to be" \
+                   " authenticated and have a scope of read:messages to see" \
+                   " this."
         return jsonify(message=response)
     raise AuthError({
         "code": "Unauthorized",
@@ -213,7 +217,8 @@ def showRecipes():
 
 @app.route("/recipe/<recipe_id>")
 def getRecipeDetail(recipe_id):
-    req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={SPOON_API_KEY}'
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/' \
+          f'information?&apiKey={SPOON_API_KEY}'
     res = requests.get(req)
     data = res.json()
     return render_template('recipe_detail.html', recipe=data)
@@ -234,7 +239,7 @@ def callback_handling():
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
-    return redirect('/')
+    return redirect('/pantry')
 
 @app.route('/login')
 def login():
@@ -244,7 +249,8 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    params = {'returnTo': url_for('index', _external=True), 'client_id': AUTH0_CLIENT_ID}
+    params = {'returnTo': url_for('index', _external=True),
+              'client_id': AUTH0_CLIENT_ID}
     return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
 
 # test module import
