@@ -19,6 +19,7 @@ if ENV_FILE:
     load_dotenv(ENV_FILE)
 AUTH0_DOMAIN = env.get("AUTH0_DOMAIN")
 AUTH0_AUDIENCE = env.get("AUTH0_IDENTIFIER")
+SPOON_API_KEY = env.get("SPOON_KEY")
 AUTH0_CALLBACK_URL = env.get(constants.AUTH0_CALLBACK_URL)
 AUTH0_CLIENT_ID = env.get(constants.AUTH0_CLIENT_ID)
 AUTH0_CLIENT_SECRET = env.get(constants.AUTH0_CLIENT_SECRET)
@@ -188,10 +189,6 @@ def private_scoped():
         "description": "You don't have access to this resource"
     }, 403)
 
-
-# TODO - resolve this plaintext key issue
-API_KEY = '9e749e7df97047c38000f0f4addb64f9'
-
 # / route will show our index template
 @app.route("/")
 def index():
@@ -214,7 +211,7 @@ def showRecipes():
 
 @app.route("/recipe/<recipe_id>")
 def getRecipeDetail(recipe_id):
-    req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={API_KEY}'
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={SPOON_API_KEY}'
     res = requests.get(req)
     data = res.json()
     return render_template('recipe_detail.html', recipe=data)

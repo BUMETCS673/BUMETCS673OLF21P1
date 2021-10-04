@@ -1,12 +1,16 @@
 import requests
+from dotenv import find_dotenv, load_dotenv
+from os import environ as env
 
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+SPOON_API_KEY = env.get("SPOON_KEY")
 
 def searchRecipes(ingredients, diet, intolerances):
-    # API information
-    API_KEY = '9e749e7df97047c38000f0f4addb64f9'
-    
+
     # basic request
-    req = f'https://api.spoonacular.com/recipes/complexSearch?includeIngredients={ingredients}&apiKey={API_KEY}'
+    req = f'https://api.spoonacular.com/recipes/complexSearch?includeIngredients={ingredients}&apiKey={SPOON_API_KEY}'
 
     if diet == 'all':
         pass  # do nothing
