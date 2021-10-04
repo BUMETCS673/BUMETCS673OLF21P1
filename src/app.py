@@ -1,11 +1,17 @@
 import requests
 from flask import Flask, render_template, request
 from spoon import searchRecipes, getRecipeById
+from dotenv import find_dotenv, load_dotenv
+from os import environ as env
 
 # flask class instance
 app = Flask(__name__)
 
-API_KEY = '9e749e7df97047c38000f0f4addb64f9'
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+SPOON_API_KEY = env.get("SPOON_KEY")
+
 
 # / route will show our index template
 @app.route("/")

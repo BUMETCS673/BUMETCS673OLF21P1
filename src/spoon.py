@@ -1,16 +1,23 @@
 import requests
+from dotenv import find_dotenv, load_dotenv
+from os import environ as env
 
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
+SPOON_API_KEY = env.get("SPOON_KEY")
 
 def searchRecipes(ingredients, diet, intolerances):
-    # API information
-    API_KEY = '9e749e7df97047c38000f0f4addb64f9'
 
     # basic request
-    req = f'https://api.spoonacular.com/recipes/complexSearch?includeIngredients={ingredients}&apiKey={API_KEY}'
+    req = f'https://api.spoonacular.com/recipes/complexSearch?include' \
+          f'Ingredients={ingredients}&apiKey={SPOON_API_KEY}'
 
     if diet == 'all':
         pass  # do nothing
-    else:  # either vegan, vegetarian, glutenfree, ketogenic, whole30, lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
+    # either vegan, vegetarian, glutenfree, ketogenic, whole30,
+    # lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
+    else:
         req += f'&diet={diet}'
 
     if intolerances == 'no-intol':
@@ -19,7 +26,8 @@ def searchRecipes(ingredients, diet, intolerances):
         intolerances += f'&intolerances={intolerances}'
 
     res = requests.get(req)
-    data = res.json()  # json decode method, turn data into a native python datatype
+    # json decode method, turn data into a native python datatype
+    data = res.json()
     print(data)
     results = data['results']
     print(results)
@@ -28,8 +36,8 @@ def searchRecipes(ingredients, diet, intolerances):
 
 def getRecipeById(recipeID):
     """Return the recipe detail using a recipe ID."""
-    API_KEY = '9e749e7df97047c38000f0f4addb64f9'
 
-    request_url = f'https://api.spoonacular.com/recipes/{recipeID}/information?&apiKey={API_KEY}'
+    request_url = f'https://api.spoonacular.com/recipes/{recipeID}/' \
+                  f'information?&apiKey={SPOON_API_KEY}'
     res = requests.get(url=request_url)
     return res.json()
