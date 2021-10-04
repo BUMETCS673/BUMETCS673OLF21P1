@@ -1,6 +1,8 @@
 import requests
 from flask import Flask, render_template, request, session, redirect, jsonify,\
     _request_ctx_stack, url_for
+from werkzeug.exceptions import HTTPException
+
 from spoon import searchRecipes
 from os import environ as env
 import json
@@ -48,10 +50,10 @@ class AuthError(Exception):
         self.error = error
         self.code = code
 
-@app.errorhandler(AuthError)
+@app.errorhandler(Exception)
 def handle_auth_error(ex):
-    response = jsonify(ex.error)
-    response.status_code = ex.code
+    response = jsonify(message=str(ex))
+    response.status_code = (ex.code if isinstance(ex, HTTPException) else 500)
     return response
 
 # Format error response and append status code
@@ -247,5 +249,5 @@ def logout():
 
 # test module import
 if __name__ == "__main__":
-    app.secret_key="super secret key" #This is for testing...
+    app.secret_key=AUTH0_CLIENT_SECRET
     app.run(debug = True)
