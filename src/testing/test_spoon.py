@@ -1,5 +1,5 @@
 """
-Unit testing for getSmartRecipeRecommendation function.
+Unit testing for searchRecipes function.
 """
 import unittest
 from src.spoon import searchRecipes
