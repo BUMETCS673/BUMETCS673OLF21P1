@@ -42,14 +42,14 @@ def getRecipeDetail(recipe_id):
 
 @app.route("/recipe_detail/<recipe_id>")
 def getSmartRecipeRecommendation(recipe_id):
-    data = getRecipeDetail(recipe_id)
-    print(data)
+    print(recipe_id)
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/similar?&number=1&information?&apiKey={API_KEY}'
+    res = requests.get(req)
+    data = res.json()
     data = data[0]
     new_id = data['id']
-    req2 = f'https://api.spoonacular.com/recipes/{new_id}/information?&apiKey={API_KEY}'
-    res2 = requests.get(req2)
-    data2 = res2.json()
-    return render_template('recipe_detail.html', recipe=data2)
+    print(new_id)
+    getRecipeDetail(new_id)
 
 
 # test module import
