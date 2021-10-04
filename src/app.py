@@ -49,7 +49,7 @@ def getSmartRecipeRecommendation(recipe_id):
     data = data[0]
     new_id = data['id']
     print(new_id)
-    getRecipeDetail(new_id)
+    return getRecipeDetail(new_id)
 
 
 # test module import
