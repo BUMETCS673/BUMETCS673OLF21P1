@@ -247,5 +247,5 @@ def logout():
 
 # test module import
 if __name__ == "__main__":
-    app.secret_key="super secret key"
+    app.secret_key="super secret key" #This is for testing...
     app.run(debug = True)
