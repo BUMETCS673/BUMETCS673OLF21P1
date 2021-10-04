@@ -11,7 +11,7 @@ API_KEY = '9e749e7df97047c38000f0f4addb64f9'
 @app.route("/")
 def index():
     # The following is a placeholder for creating a user's favorite recipes
-    req = f'https://api.spoonacular.com/recipes/complexSearch?query=seafood&number=3&apiKey={API_KEY}'
+    req = f'https://api.spoonacular.com/recipes/complexSearch?query=Korean&number=3&apiKey={API_KEY}'
     res = requests.get(req)
     data = res.json()
     results = data['results']
@@ -42,10 +42,7 @@ def getRecipeDetail(recipe_id):
 
 @app.route("/recipe_detail/<recipe_id>")
 def getSmartRecipeRecommendation(recipe_id):
-    # recipe_id = request.args.get('recipe_id')
-    req = f'https://api.spoonacular.com/recipes/{recipe_id}/similar?number=1&apiKey={API_KEY}'
-    res = requests.get(req)
-    data = res.json()
+    data = getRecipeDetail(recipe_id)
     print(data)
     data = data[0]
     new_id = data['id']
