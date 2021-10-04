@@ -1,5 +1,5 @@
 """
-Usage in docker: docker-compose exec web python tests/tests_getrecipedetail.py
+Usage in docker: docker-compose exec web python tests/get_recipe_detail_test.py
 """
 import unittest
 import responses
