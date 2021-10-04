@@ -20,9 +20,9 @@ if ENV_FILE:
 AUTH0_DOMAIN = env.get("AUTH0_DOMAIN")
 AUTH0_AUDIENCE = env.get("AUTH0_IDENTIFIER")
 SPOON_API_KEY = env.get("SPOON_KEY")
-AUTH0_CALLBACK_URL = env.get(constants.AUTH0_CALLBACK_URL)
-AUTH0_CLIENT_ID = env.get(constants.AUTH0_CLIENT_ID)
-AUTH0_CLIENT_SECRET = env.get(constants.AUTH0_CLIENT_SECRET)
+AUTH0_CALLBACK_URL = env.get("AUTH0_CALLBACK_URL")
+AUTH0_CLIENT_ID = env.get("AUTH0_CLIENT_ID")
+AUTH0_CLIENT_SECRET = env.get("AUTH0_CLIENT_SECRET")
 AUTH0_BASE_URL = 'https://' + AUTH0_DOMAIN
 ALGO = ["RS256"]
 
@@ -163,7 +163,7 @@ def public():
 
 @app.route("/api/private")
 @cross_origin(headers=["Content-Type", "Authorization"])
-@cross_origin(headers=["Access-Control-Allow-Origin", "http://localhost:3000"])
+@cross_origin(headers=["Access-Control-Allow-Origin", "http://localhost:5000"])
 @requires_auth
 def private():
     """
@@ -175,7 +175,7 @@ def private():
 
 @app.route("/api/private-scoped")
 @cross_origin(headers=["Content-Type", "Authorization"])
-@cross_origin(headers=["Access-Control-Allow-Origin", "http://localhost:3000"])
+@cross_origin(headers=["Access-Control-Allow-Origin", "http://localhost:5000"])
 @requires_auth
 def private_scoped():
     """
@@ -225,6 +225,7 @@ def callback_handling():
     userinfo = resp.json()
 
     # Store the user information in flask session.
+    # TODO - change this from name and picture to pantry and recipes
     session['jwt_payload'] = userinfo
     session['profile'] = {
         'user_id': userinfo['sub'],
@@ -235,7 +236,8 @@ def callback_handling():
 
 @app.route('/login')
 def login():
-    return auth0.authorize_redirect(redirect_uri='YOUR_CALLBACK_URL')
+    return auth0.authorize_redirect(redirect_uri=AUTH0_CALLBACK_URL,
+                                    audience=AUTH0_AUDIENCE)
 
 @app.route('/logout')
 def logout():
@@ -245,4 +247,5 @@ def logout():
 
 # test module import
 if __name__ == "__main__":
+    app.secret_key="super secret key"
     app.run(debug = True)
