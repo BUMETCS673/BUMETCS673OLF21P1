@@ -8,7 +8,7 @@ from src.spoon import getRecipeById
 
 class TestGetRecipeById(unittest.TestCase):
     @responses.activate
-    def test_get_recipe_by_id(self):
+    def testGetRecipeByID(self):
         expected_request_url = 'https://api.spoonacular.com/recipes/12345/information?&apiKey=9e749e7df97047c38000f0f4addb64f9'
         responses.add(responses.GET, expected_request_url, json={'title': 'Morning Glory Muffins'}, status=200)
 
@@ -18,7 +18,7 @@ class TestGetRecipeById(unittest.TestCase):
         assert resp['title'] == 'Morning Glory Muffins'
 
     @responses.activate
-    def test_404_not_found(self):
+    def test404NotFound(self):
         expected_request_url = 'https://api.spoonacular.com/recipes/54321/information?&apiKey=9e749e7df97047c38000f0f4addb64f9'
         responses.add(responses.GET, expected_request_url, json={'error': 'not found'}, status=404)
 
