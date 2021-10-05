@@ -8,7 +8,6 @@ if ENV_FILE:
 SPOON_API_KEY = env.get("SPOON_KEY")
 
 def searchRecipes(ingredients, diet, intolerances):
-
     # basic request
     req = f'https://api.spoonacular.com/recipes/complexSearch?include' \
           f'Ingredients={ingredients}&apiKey={SPOON_API_KEY}'
@@ -22,22 +21,12 @@ def searchRecipes(ingredients, diet, intolerances):
 
     if intolerances == 'no-intol':
         pass
-    else:  # dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish
+    else: # dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish
         intolerances += f'&intolerances={intolerances}'
 
     res = requests.get(req)
-    # json decode method, turn data into a native python datatype
-    data = res.json()
+    data = res.json() # json decode method, turn data into a native python datatype 
     print(data)
     results = data['results']
     print(results)
     return results
-
-
-def getRecipeById(recipeID):
-    """Return the recipe detail using a recipe ID."""
-
-    request_url = f'https://api.spoonacular.com/recipes/{recipeID}/' \
-                  f'information?&apiKey={SPOON_API_KEY}'
-    res = requests.get(url=request_url)
-    return res.json()
