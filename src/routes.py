@@ -1,11 +1,7 @@
 import requests
-from flask import Flask, render_template, request
-from spoon import searchRecipes
-
-# flask class instance
-app = Flask(__name__)
-
-API_KEY = '9e749e7df97047c38000f0f4addb64f9'
+from flask import render_template, request
+from spoon import searchRecipes, getRecipeDetail
+from config import *
 
 # / route will show our index template
 @app.route("/")
@@ -26,14 +22,7 @@ def showRecipes():
     # set second argument to pass the data
     return render_template('recipe.html', results=results)
 
-
 @app.route("/recipe/<recipe_id>")
-def getRecipeDetail(recipe_id):
-    req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={API_KEY}'
-    res = requests.get(req)
-    data = res.json()
+def recipeDetail(recipe_id):
+    data = getRecipeDetail(recipe_id)
     return render_template('recipe_detail.html', recipe=data)
-
-# test module import
-if __name__ == "__main__":
-    app.run(debug = True)
