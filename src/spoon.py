@@ -1,5 +1,5 @@
 import requests
-from config import *
+from config import API_KEY
 
 def searchRecipes(ingredients, diet, intolerances):
     # basic request

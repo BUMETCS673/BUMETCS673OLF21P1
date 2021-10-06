@@ -1,7 +1,7 @@
 import requests
 from flask import render_template, request
 from spoon import searchRecipes, getRecipeDetail
-from config import *
+from config import app
 
 # / route will show our index template
 @app.route("/")
