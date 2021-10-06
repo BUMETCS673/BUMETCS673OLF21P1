@@ -1,14 +1,23 @@
 {% include "index.html" %}
 
-    <div class="recipe-container" style="margin-bottom:80px">
+    <div class="col-6">
+        <div class="row">
+            
         {% for result in results %}
-      <div class="recipe">
-          <a href="/recipe/{{result.id}}"><img class="image" src="{{result.image}}"></a>
-          <section class="details">
-            <h2 class="name"><a href="/recipe/{{result.id}}">{{result.title}}</a></h2>
-          </section>
+        <div class="col-sm-6 mb-1">
+      <div class="card" style="width: 18rem; height:22rem">
+          <a href="/recipe/{{result.id}}"><img class="card-img-top" src="{{result.image}}"></a>
+          <div class="card-body">
+            <h5 class="card-title">{{result.title}}</h2>
+          </div>
+          <div class="card-footer">
+            <a href="/recipe/{{result.id}}" class="card-link"> See recipe... </a>
+          </div>
+      </div>
       </div>
         {% endfor %}
     </div>
+    </div>
+</div>
 
 {% include "foot.html" %}
