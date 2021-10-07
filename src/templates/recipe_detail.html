@@ -25,11 +25,16 @@
     </div>
     <div>
         <h2>Steps</h2>
-        {% for step in recipe.analyzedInstructions[0].steps %}
-        <h5>#{{step.number}}</h5>
-        <p>{{step.step}}</p>
-        {% endfor %}
+        {% if recipe.analyzedInstructions != [] %}
+            {% for step in recipe.analyzedInstructions[0].steps %}
+            <h5>#{{step.number}}</h5>
+            <p>{{step.step}}</p>
+            {% endfor %}
+        {% else %}
+            See <a href="{{recipe.sourceUrl}}">source link</a>
+        {% endif %}
     </div>
 </div>
 
 {% include "foot.html" %}
+
