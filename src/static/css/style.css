@@ -2,3 +2,56 @@
 	flex: 0 0 50%;
 	max-width: 50%;
 }
+body {
+    background-image: url("../images/cuteveg.jpeg");
+    background-repeat: repeat;
+}
+
+nav {
+    background-image: linear-gradient(to bottom, white, #0000 30%);
+}
+
+h1 {
+    color:black;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+}
+
+#appName {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+}
+
+#recipeTitle {
+    background-color: #fcfcfc;
+}
+#resippy {
+    background-color: #fcfcfc;
+}
+
+.card {
+    background-color: #fcfcfc;
+    color: #4f575b;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900;
+}
+
+.btn {
+    background-color: #ecc343;
+    color: #ffffff;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 900;
+}
+
+.searchBox, .searchResult, .dropdown-item {
+    background-color: #fcfcfc;
+    color: #4f575b;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
+}

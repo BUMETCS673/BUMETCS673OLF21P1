@@ -1,38 +1,58 @@
 {% include "head.html" %}
-    <div class="row m-2">
-        <div class="col-6">
+<div class="row m-2">
+    <div class="col-6">
+        
+
+        <form action="/recipe" class="searchBox p-2 rounded">
             <h1>Welcome to Cheffy</h1>
-            <p style="margin-bottom:1px;">Search recipes by ingredients you have on hand!</p>
-            <p style="font-size:12px;margin-top:5px;">(Separate ingredients by comma, no spaces)</p>
-            <form action="/recipe">
+            <div class="mb-3">
+                <label for="search" class="form-label">Search recipes by ingredients you have on hand!</label>
+                <input type="text" class="form-control" id="search" placeholder="e.g. broccoli,mushroom"
+                    name="ingredients">
+                <div id="searchHelp" class="form-text">(Separate ingredients by comma, no spaces)</div>
+            </div>
 
-                <div class="search-box">
-                    <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
-                    <button type="submit"><i class="fa fa-search"></i>Search</button>
-                </div>
-                <div class="options">
-                    <div class="diet-option">
-                        <span>I am...</span>
 
-                        <input type="radio" id="vegan" name="diet" value="vegan" checked><label for="vegan">Vegan</label>
+            <div class="options">
+                <div class="diet-option">
+                    <span>I am...</span>
 
-                        <input type="radio" id="vegetarian" name="diet" value="vegetarian"><label for="vegetarian">Vegetarian</label>
-
-                        <input type="radio" id="ketogenic" name="diet" value="vegetarian"><label for="ketogenic">Ketogenic</label>
-
-                        <input type="radio" id="all" name="diet" value="all"><label for="all">I eat all</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="vegan" name="diet" value="vegan">
+                        <label class="form-check-label" for="vegan">Vegan</label>
                     </div>
-                    <div class="intolerances">
-                        <span>I cannot eat...</span>
-                        <input type="radio" id="gluten" name="intolerances" value="gluten"><label for="gluten">gluten</label>
-
-                        <input type="radio" id="shellfish" name="intolerances" value="shellfish"><label for="shellfish">shellfish</label>
-
-                        <input type="radio" id="no-intol" name="intolerances" value="no-intol" checked><label for="no-pref">No intolerances</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="vegetarian" name="diet" value="vegetarian">
+                        <label class="form-check-label" for="vegetarian">Vegetarian</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="ketogenic" name="diet" value="ketogenic">
+                        <label class="form-check-label" for="ketogenic">Ketogenic</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="all" name="diet" value="all">
+                        <label class="form-check-label" for="all">I eat everything.</label>
                     </div>
                 </div>
+                <div class="intolerances">
+                    <span>I cannot eat...</span>
 
-            </form>
-        </div>
-
-
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="gluten" name="intolerances" value="gluten">
+                        <label class="form-check-label" for="gluten">Gluten</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="shellfish" name="intolerances"
+                            value="shellfish">
+                        <label class="form-check-label" for="shellfish">Shellfish</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="no-intol" name="intolerances"
+                            value="no-intol">
+                        <label class="form-check-label" for="no-intol">No intolerances.</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn">Search</button>
+        </form>
+    </div>
