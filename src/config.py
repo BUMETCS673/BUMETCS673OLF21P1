@@ -1,6 +1,17 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 # flask class instance
 app = Flask(__name__)
 
-API_KEY = '9e749e7df97047c38000f0f4addb64f9'
+# group api
+# API_KEY = '9e749e7df97047c38000f0f4addb64f9'
+
+# my api
+API_KEY = '67df1b0cf25e48ff8a5264da4cf20285'
+
+
+# database setup
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cheffy.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+DB = SQLAlchemy(app)

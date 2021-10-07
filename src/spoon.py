@@ -27,3 +27,19 @@ def getRecipeDetail(recipe_id):
     res = requests.get(req)
     data = res.json()
     return data
+
+def searchSpoon(ingredient):
+    # api url
+    ingUrl = 'https://api.spoonacular.com/food/ingredients/search?query={}&apiKey={}&number=1'
+
+    search = requests.get(ingUrl.format(ingredient, API_KEY)).json()
+
+    # search spoonable API to verify actual ingredient
+    if search['totalResults'] > 0:
+        ingName = ingredient.lower()
+        ingId = search['results'][0]['id']
+        ingPic = search['results'][0]['image']
+        return [ingName, ingId, ingPic]
+    else:
+
+        return False
