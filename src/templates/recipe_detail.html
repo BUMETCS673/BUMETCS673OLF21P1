@@ -1,40 +1,81 @@
 {% include "head.html" %}
+<div class="container rounded" id="resippy">
+    <div class="row" id="recipeTitle">
 
-<div>
-    <div>
-        <h1>{{recipe.title}}</h1>
-        <p><a href="{{recipe.sourceUrl}}">Source</a> Read in: {{recipe.readyInMinutes}} minutes</p>
-        <img src="{{recipe.image}}" width="500px"/>
-        <p>{{recipe.summary|striptags}}</p>
+        <div>
+            <h1 id="recipeTitle">{{recipe.title}}</h1>
+        </div>
     </div>
-    <div>
-        Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif %} <br/>
-        Vegan: {% if recipe.vegan %}✅{% else %}⛔{% endif %} <br/>
-        Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif %} <br/>
-        Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{% endif %} <br/>
-        Cheap: {% if recipe.cheap %}✅{% else %}⛔{% endif %} <br/>
-        Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{% endif %} <br/>
-        Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{% endif %} <br/>
-    </div>
-    <div>
-        <h2>Ingredients</h2>
-        {% for ingredient in recipe.extendedIngredients %}
-        <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}"/>
-        <p>{{ingredient.originalString|capitalize}}</p>
-        {% endfor %}
-    </div>
-    <div>
-        <h2>Steps</h2>
-        {% if recipe.analyzedInstructions != [] %}
-            {% for step in recipe.analyzedInstructions[0].steps %}
-            <h5>#{{step.number}}</h5>
-            <p>{{step.step}}</p>
-            {% endfor %}
-        {% else %}
-            See <a href="{{recipe.sourceUrl}}">source link</a>
-        {% endif %}
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card mt-1 rounded">
+                <img src="{{recipe.image}}" class="card-img-top" alt="{{recipe.title}}">
+                <div class="card-body">
+                    <p class="card-text">{{recipe.summary|striptags}}</p>
+                </div>
+                <ul class="list-group d-flex flex-row flex-wrap">
+                    <li class="list-group-item flex-fill">Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif %}
+                    </li>
+                    <li class="list-group-item flex-fill">Vegan: {% if recipe.vegan %}✅{% else %}⛔{% endif %}</li>
+                    <li class="list-group-item flex-fill">Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif %}
+                    </li>
+                    <li class="list-group-item flex-fill">Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{% endif
+                        %}</li>
+                    <li class="list-group-item flex-fill">Cheap: {% if recipe.cheap %}✅{% else %}⛔{% endif %}</li>
+                    <li class="list-group-item flex-fill">Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{% endif
+                        %}</li>
+                    <li class="list-group-item flex-fill">Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{% endif
+                        %}</li>
+                </ul>
+                <div class="card-body d-flex justify-content-between">
+                    <span>Ready in: {{recipe.readyInMinutes}} minutes</span>
+                    <span><a href="{{recipe.sourceUrl}}" class="card-link">Source</a></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card mb-3 mt-1 rounded">
+                <h2 class="card-header" type="button" data-bs-toggle="collapse" data-bs-target="#ingredients"
+                    aria-expanded="false" aria-controls="ingredients">Ingredients <i class="bi bi-arrow-down"></i></h2>
+                <div class="card-body collapse" id="ingredients">
+                    <ul class="list-group d-flex flex-row flex-wrap">
+
+                        {% for ingredient in recipe.extendedIngredients %}
+
+                        <li class="list-group-item" style="float:left; width:12rem;">
+                            <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}"
+                                alt="{{ingredient.originalString|capitalize}}"
+                                style="max-height: 5rem; object-fit: contain; float: left;" />{{ingredient.originalString|capitalize}}
+                        </li>
+                        {% endfor%}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card rounded">
+                <h2 class="card-header">How to:</h2>
+                <div class="card-body">
+                  {% if recipe.analyzedInstructions != [] %}
+                    {% for step in recipe.analyzedInstructions[0].steps %}
+                    <div class="card-header">
+                        Step #{{step.number}}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{step.step}}</li>
+                    </ul>
+                    {% endfor %}
+                  {% else %}
+                  <ul class="list-group list-group-flush">
+                  <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
+                  </ul>
+                  {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-{% include "foot.html" %}
 
+{% include "foot.html" %}
