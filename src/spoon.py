@@ -1,10 +1,7 @@
 import requests
-
+from config import API_KEY
 
 def searchRecipes(ingredients, diet, intolerances):
-    # API information
-    API_KEY = '9e749e7df97047c38000f0f4addb64f9'
-    
     # basic request
     req = f'https://api.spoonacular.com/recipes/complexSearch?includeIngredients={ingredients}&apiKey={API_KEY}'
 
@@ -24,3 +21,9 @@ def searchRecipes(ingredients, diet, intolerances):
     results = data['results']
     print(results)
     return results
+
+def getRecipeDetail(recipe_id):
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={API_KEY}'
+    res = requests.get(req)
+    data = res.json()
+    return data
