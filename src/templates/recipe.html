@@ -1,53 +1,23 @@
 {% include "index.html" %}
 
-    <!-- <main style="margin-bottom:40px;margin-top:3%">
-        <section class="intro-container">
-            <h1>Welcome to Cheffy</h1>
-            <p style="margin-bottom:1px;">Search recipes by ingredients you have on hand!</p>
-            <p style="font-size:12px;margin-top:5px;">(Separate ingredients by comma, no spaces)</p>
-            <form action="/recipe" method="POST">
+<div class="col-6">
+    <div class="row searchResult">
 
-                <div class="search-box">
-                    <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
-                    <button type="submit"><i class="fa fa-search"></i>Search</button>
-                </div>
-                <div class="options">
-                    <div class="diet-option">
-                        <span>I am...</span>
-
-                        <input type="radio" id="vegan" name="diet" value="vegan" checked><label for="vegan">Vegan</label>
-
-                        <input type="radio" id="vegetarian" name="diet" value="vegetarian"><label for="vegetarian">Vegetarian</label>
-
-                        <input type="radio" id="ketogenic" name="diet" value="vegetarian"><label for="ketogenic">Ketogenic</label>
-
-                        <input type="radio" id="all" name="diet" value="all"><label for="all">I eat everything</label>
-                    </div>
-                    <div class="intolerances">
-                        <span>I cannot eat...</span>
-                        <input type="radio" id="gluten" name="intolerances" value="gluten"><label for="gluten">gluten</label>
-
-                        <input type="radio" id="shellfish" name="intolerances" value="shellfish"><label for="shellfish">shellfish</label>
-
-                        <input type="radio" id="no-intol" name="intolerances" value="no-intol" checked><label for="no-pref">No intolerances</label>
-                    </div>
-                </div>
-
-            </form>
-        </section>
-    </main> -->
-
-
-
-    <div class="recipe-container" style="margin-bottom:80px">
         {% for result in results %}
-      <div class="recipe">
-          <a href="/recipe/{{result.id}}"><img class="image" src="{{result.image}}"></a>
-          <section class="details">
-            <h2 class="name"><a href="/recipe/{{result.id}}">{{result.title}}</a></h2>
-          </section>
-      </div>
+        <div class="col-sm-6 mb-1">
+            <div class="card m-1 h-100 rounded" style="width: 18rem; height:22rem">
+                <a href="/recipe/{{result.id}}"><img class="card-img-top" src="{{result.image}}"></a>
+                <div class="card-body">
+                    <h5 class="card-title">{{result.title}}</h2>
+                </div>
+                <div class="card-footer">
+                    <a href="/recipe/{{result.id}}" class="card-link"> See recipe... </a>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </div>
+</div>
+</div>
 
 {% include "foot.html" %}

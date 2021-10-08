@@ -1,0 +1,39 @@
+{% include "head.html" %}
+
+<main>
+    <section class="pantry-search-container">
+        <h1>Welcome to your Pantry</h1>
+        <p style="margin-bottom:1px;">Enter ingredients you have on hand!</p>
+        <p style="font-size:12px;margin-top:5px;">(Separate ingredients with commas)</p>
+
+        
+        <form action="/pantry">
+            <div class="search-box">
+                <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
+                <button type="submit"><i class="fa fa-search"></i>Add</button>
+            </div>
+        </form>
+
+        <div class="pantry-container" style="margin-bottom:80px">
+            <br>
+            <h1>Contents of your Pantry</h1>
+
+            <form action="{{ url_for('pantryDelAll') }}" method= post>
+                <input class="btn" type="submit" value="Empty Pantry">
+            </form>
+
+            {% for ing in items %}
+                <h2><img class="image" src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}">&emsp;{{ing.ingName}}</h2>
+
+                <form action="{{ url_for('pantryDel', id = ing.ingId) }}" method= post>
+                    <input class="btn" type="submit" value="Delete">
+                </form>
+
+
+            {% endfor %}
+        
+        </div>
+    </section>
+</main>
+
+{% include "foot.html" %}
