@@ -1,7 +1,8 @@
+from os import environ as env
+
+from dotenv import load_dotenv, find_dotenv
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import environ as env
-from dotenv import load_dotenv, find_dotenv
 
 # Importing environment variables (API keys and other secure info)
 ENV_FILE = find_dotenv()
@@ -18,8 +19,6 @@ ALGO = ["RS256"]
 
 # flask class instance
 app = Flask(__name__)
-
-
 
 # database setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cheffy.db'

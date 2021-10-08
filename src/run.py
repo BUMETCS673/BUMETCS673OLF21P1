@@ -1,5 +1,4 @@
 from config import app, DB
-import routes
 
 if __name__ == '__main__':
     # create database - will add new models if needed
@@ -7,5 +6,3 @@ if __name__ == '__main__':
 
     # start the app
     app.run(debug=True)
-
-    
