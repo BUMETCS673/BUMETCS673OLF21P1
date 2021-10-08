@@ -9,7 +9,7 @@
                 <label for="search" class="form-label">Search recipes by ingredients you have on hand!</label>
                 <input type="text" class="form-control" id="search" placeholder="e.g. broccoli,mushroom"
                     name="ingredients">
-                <div id="searchHelp" class="form-text">(Separate ingredients by comma, no spaces)</div>
+                <div id="searchHelp" class="form-text">(Separate ingredients by commas)</div>
             </div>
 
 
@@ -50,6 +50,14 @@
                         <input class="form-check-input" type="checkbox" id="no-intol" name="intolerances"
                             value="no-intol">
                         <label class="form-check-label" for="no-intol">No intolerances.</label>
+                    </div>
+                </div>
+                <div class="use-pantry">
+                    <span>Include pantry items...</span>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="use-pantry" name="pantry"
+                            value="use">
+                        <label class="form-check-label" for="use-pantry">Yes</label>
                     </div>
                 </div>
             </div>
