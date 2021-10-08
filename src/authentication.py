@@ -1,34 +1,15 @@
-import requests
-from flask import Flask, render_template, request, session, redirect, jsonify,\
-    _request_ctx_stack, url_for
+import json
+from urllib.request import urlopen
+
+from authlib.jose import jwt
+from flask import jsonify, _request_ctx_stack
+from flask_cors import cross_origin
 from werkzeug.exceptions import HTTPException
 
-from spoon import searchRecipes
-from os import environ as env
-import json
-from six.moves.urllib.request import urlopen
-from six.moves.urllib.parse import urlencode
-from functools import wraps
-from flask_cors import cross_origin
-from jose import jwt
-from dotenv import load_dotenv, find_dotenv
+from config import app, AUTH0_CLIENT_SECRET, AUTH0_CLIENT_ID, AUTH0_AUDIENCE,\
+    AUTH0_DOMAIN, AUTH0_CALLBACK_URL, AUTH0_BASE_URL, ALGO
 from authlib.integrations.flask_client import OAuth
 
-# Loading in Auth0 information from environment file
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
-AUTH0_DOMAIN = env.get("AUTH0_DOMAIN")
-AUTH0_AUDIENCE = env.get("AUTH0_IDENTIFIER")
-SPOON_API_KEY = env.get("SPOON_KEY")
-AUTH0_CALLBACK_URL = env.get("AUTH0_CALLBACK_URL")
-AUTH0_CLIENT_ID = env.get("AUTH0_CLIENT_ID")
-AUTH0_CLIENT_SECRET = env.get("AUTH0_CLIENT_SECRET")
-AUTH0_BASE_URL = 'https://' + AUTH0_DOMAIN
-ALGO = ["RS256"]
-
-# flask class instance
-app = Flask(__name__)
 oauth = OAuth(app)
 auth0 = oauth.register(
     'auth0',
@@ -42,7 +23,6 @@ auth0 = oauth.register(
     },
 )
 
-
 # Error handler for user authorization
 class AuthError(Exception):
     def __init__(self, error, code):
@@ -54,6 +34,7 @@ def handle_auth_error(ex):
     response = jsonify(message=str(ex))
     response.status_code = (ex.code if isinstance(ex, HTTPException) else 500)
     return response
+
 
 # Format error response and append status code
 def get_token_auth_header():
@@ -194,66 +175,3 @@ def private_scoped():
         "code": "Unauthorized",
         "description": "You don't have access to this resource"
     }, 403)
-
-# / route will show our index template
-@app.route("/")
-def index():
-    return render_template("index.html")
-
-# /about will show about page
-app.route("/about")
-def about():
-    return render_template("about.html")
-
-@app.route("/recipe")
-def showRecipes():
-    ingredients = request.args.get('ingredients')
-    diet = request.args.get('diet')
-    intolerances = request.args.get('intolerances')
-    results = searchRecipes(ingredients, diet, intolerances)
-    # set second argument to pass the data
-    return render_template('recipe.html', results=results)
-
-
-@app.route("/recipe/<recipe_id>")
-def getRecipeDetail(recipe_id):
-    req = f'https://api.spoonacular.com/recipes/{recipe_id}/' \
-          f'information?&apiKey={SPOON_API_KEY}'
-    res = requests.get(req)
-    data = res.json()
-    return render_template('recipe_detail.html', recipe=data)
-
-# Here we're using the /callback route.
-@app.route('/callback')
-def callback_handling():
-    # Handles response from token endpoint
-    auth0.authorize_access_token()
-    resp = auth0.get('userinfo')
-    userinfo = resp.json()
-
-    # Store the user information in flask session.
-    # TODO - change this from name and picture to pantry and recipes
-    session['jwt_payload'] = userinfo
-    session['profile'] = {
-        'user_id': userinfo['sub'],
-        'name': userinfo['name'],
-        'picture': userinfo['picture']
-    }
-    return redirect('/pantry')
-
-@app.route('/login')
-def login():
-    return auth0.authorize_redirect(redirect_uri=AUTH0_CALLBACK_URL,
-                                    audience=AUTH0_AUDIENCE)
-
-@app.route('/logout')
-def logout():
-    session.clear()
-    params = {'returnTo': url_for('index', _external=True),
-              'client_id': AUTH0_CLIENT_ID}
-    return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
-
-# test module import
-if __name__ == "__main__":
-    app.secret_key=AUTH0_CLIENT_SECRET
-    app.run(debug = True)
