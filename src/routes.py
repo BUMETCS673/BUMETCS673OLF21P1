@@ -1,5 +1,5 @@
 from urllib.parse import urlencode
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from config import app
 from pantry import PantryManager
 from spoon import searchRecipes, getRecipeDetail
