@@ -16,7 +16,7 @@ def searchRecipes(ingredients, diet, intolerances):
     else:
         req += f'&diet={diet}'
 
-    if intolerances == 'no-intol':
+    if intolerances is None:
         pass
     # dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish
     else:
