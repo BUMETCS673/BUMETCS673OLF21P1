@@ -5,12 +5,12 @@ def searchRecipes(ingredients, diet, intolerances):
     # basic request
     req = f'https://api.spoonacular.com/recipes/complexSearch?includeIngredients={ingredients}&apiKey={API_KEY}'
 
-    if diet == 'all':
+    if diet is None:
         pass  # do nothing
     else:  # either vegan, vegetarian, glutenfree, ketogenic, whole30, lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
-        req += f'&diet={diet}' 
+        req += f'&diet={diet}'
 
-    if intolerances == 'no-intol':
+    if intolerances is None:
         pass
     else: # dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish
         intolerances += f'&intolerances={intolerances}'
