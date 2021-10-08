@@ -1,14 +1,14 @@
-from re import A
-from spoon import searchSpoon
 from config import DB
 from models import Pantry
+from spoon import searchSpoon
+
 
 class pantryItem():
     def __init__(self, ingName, ingId, ingPic):
         self.ingName = ingName
         self.ingId = ingId
         self.ingPic = ingPic
-    
+
     def __lt__(self, other):
         return self.ingName < other.ingName
 
@@ -31,16 +31,17 @@ class PantryManager():
 
             search = searchSpoon(ing)
             if search != False:
-                if Pantry.query.filter_by(userId = self.currUser, ingId=search[1]).first() == None:
-                    DB.session.add(Pantry(userId = self.currUser, ingId = search[1], ingName = search[0], ingPic = search[2]))
+                if Pantry.query.filter_by(userId=self.currUser,
+                                          ingId=search[1]).first() is None:
+                    DB.session.add(
+                        Pantry(userId=self.currUser, ingId=search[1],
+                               ingName=search[0], ingPic=search[2]))
                     DB.session.commit()
                     print('Adding ' + ing + ' to Pantry')
                 else:
                     print(ing + ' Exists in Pantry for this user')
             else:
                 print(ing + ' not found')
-
-
 
     def getPantry(self):
         # returns a list of pantry item ids for current user
@@ -51,8 +52,8 @@ class PantryManager():
         # if there is a user logged in
         if self.currUser != '':
 
-            if len(Pantry.query.filter_by(userId = self.currUser).all()) > 0:
-                for ing in Pantry.query.filter_by(userId = self.currUser).all():
+            if len(Pantry.query.filter_by(userId=self.currUser).all()) > 0:
+                for ing in Pantry.query.filter_by(userId=self.currUser).all():
                     ingList.append(ing.ingName)
             # convert list to string
             retString = ', '.join(map(str, ingList))
@@ -65,15 +66,19 @@ class PantryManager():
 
     def dispPantry(self):
         ingredientList = []
-        for item in Pantry.query.filter_by(userId = self.currUser).order_by(Pantry.ingName).all():
-            ingredientList.append(pantryItem(item.ingName, item.ingId, item.ingPic))
+        for item in Pantry.query.filter_by(userId=self.currUser).order_by(
+                Pantry.ingName).all():
+            ingredientList.append(
+                pantryItem(item.ingName, item.ingId, item.ingPic))
         ingredientList.sort()
         return ingredientList
 
     def delPantryItem(self, id):
         # delete item with target id value
-        if Pantry.query.filter_by(userId = self.currUser, ingId = id).first() != None:
-            DB.session.delete(Pantry.query.filter_by(userId = self.currUser, ingId = id).first())
+        if Pantry.query.filter_by(userId=self.currUser,
+                                  ingId=id).first() != None:
+            DB.session.delete(
+                Pantry.query.filter_by(userId=self.currUser, ingId=id).first())
             DB.session.commit()
             return True
         else:
@@ -82,11 +87,10 @@ class PantryManager():
 
     def delPantryUser(self):
         # delete all items in current user's pantry
-        for ing in Pantry.query.filter_by(userId = self.currUser).all():
+        for ing in Pantry.query.filter_by(userId=self.currUser).all():
             DB.session.delete(ing)
         DB.session.commit()
 
-    
     def delPantryAll(self):
         # delete all items in pantry across all users
         for ing in Pantry.query.all():

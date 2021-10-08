@@ -1,30 +1,24 @@
 import requests
-from dotenv import find_dotenv, load_dotenv
-from os import environ as env
-from config import API_KEY
+from config import SPOON_API_KEY
 
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
-SPOON_API_KEY = env.get("SPOON_KEY")
 
 def searchRecipes(ingredients, diet, intolerances):
     # basic request
     req = f'https://api.spoonacular.com/recipes/complexSearch?' \
           f'includeIngredients={ingredients}&apiKey={SPOON_API_KEY}'
 
+    # do nothing
     if diet == 'all':
-        # do nothing
         pass
+    # either vegan, vegetarian, glutenfree, ketogenic, whole30,
+    # lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
     else:
-        # either vegan, vegetarian, glutenfree, ketogenic, whole30,
-        # lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
-        req += f'&diet={diet}' 
+        req += f'&diet={diet}'
 
-    if intolerances == 'no-intol':
+    if intolerances is None:
         pass
+    # dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish
     else:
-        # dairy, egg, gluten, grain, peanut, seafood, sesame, shellfish
         intolerances += f'&intolerances={intolerances}'
 
     res = requests.get(req)
@@ -35,17 +29,21 @@ def searchRecipes(ingredients, diet, intolerances):
     print(results)
     return results
 
+
 def getRecipeDetail(recipe_id):
-    req = f'https://api.spoonacular.com/recipes/{recipe_id}/information?&apiKey={API_KEY}'
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/' \
+          f'information?&apiKey={SPOON_API_KEY}'
     res = requests.get(req)
     data = res.json()
     return data
 
+
 def searchSpoon(ingredient):
     # api url
-    ingUrl = 'https://api.spoonacular.com/food/ingredients/search?query={}&apiKey={}&number=1'
+    ingUrl = 'https://api.spoonacular.com/food/ingredients/search?query={}&' \
+             'apiKey={}&number=1'
 
-    search = requests.get(ingUrl.format(ingredient, API_KEY)).json()
+    search = requests.get(ingUrl.format(ingredient, SPOON_API_KEY)).json()
 
     # search spoonable API to verify actual ingredient
     if search['totalResults'] > 0:

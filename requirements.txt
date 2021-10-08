@@ -6,3 +6,4 @@ python-jose
 flask-cors
 six
 flask-login
+flask_sqlalchemy
