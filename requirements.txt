@@ -6,4 +6,4 @@ python-jose
 flask-cors
 six
 flask-login
-flask_sqlalchemy
+Flask-SQLAlchemy==2.5.1

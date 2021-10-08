@@ -1,14 +1,14 @@
 {% include "head.html" %}
 <div class="row m-2">
     <div class="col-6">
-        
+
 
         <form action="/recipe" class="searchBox p-2 rounded">
             <h1>Welcome to Cheffy</h1>
             <div class="mb-3">
                 <label for="search" class="form-label">Search recipes by ingredients you have on hand!</label>
                 <input type="text" class="form-control" id="search" placeholder="e.g. broccoli,mushroom"
-                    name="ingredients">
+                       name="ingredients">
                 <div id="searchHelp" class="form-text">(Separate ingredients by comma, no spaces)</div>
             </div>
 
@@ -29,10 +29,6 @@
                         <input class="form-check-input" type="checkbox" id="ketogenic" name="diet" value="ketogenic">
                         <label class="form-check-label" for="ketogenic">Ketogenic</label>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="all" name="diet" value="all">
-                        <label class="form-check-label" for="all">I eat everything.</label>
-                    </div>
                 </div>
                 <div class="intolerances">
                     <span>I cannot eat...</span>
@@ -43,7 +39,7 @@
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="shellfish" name="intolerances"
-                            value="shellfish">
+                               value="shellfish">
                         <label class="form-check-label" for="shellfish">Shellfish</label>
                     </div>
                 </div>
