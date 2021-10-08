@@ -8,7 +8,7 @@ def searchRecipes(ingredients, diet, intolerances):
           f'includeIngredients={ingredients}&apiKey={SPOON_API_KEY}'
 
     # do nothing
-    if diet == 'all':
+    if diet is None:
         pass
     # either vegan, vegetarian, glutenfree, ketogenic, whole30,
     # lacto-vegetarian, pescetarian, ovo-vegetarian, primal, paleo
