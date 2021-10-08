@@ -1,3 +1,2 @@
-FLASK_APP=run.py
+FLASK_APP=routes.py
 FLASK_ENV=development
-PYTHONUNBUFFERED=true
