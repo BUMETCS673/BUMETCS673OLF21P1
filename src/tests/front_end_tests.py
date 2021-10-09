@@ -1,14 +1,9 @@
-from django.test import TestCase
+import unittest
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
-class SiteTest(TestCase):
-    fixtures = [
-        'app/fixtures/app.json',
-        ...
-    ]
-
+class SiteTest(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.Remote("http://selenium:4444/wd/hub", DesiredCapabilities.FIREFOX)
 
@@ -16,5 +11,9 @@ class SiteTest(TestCase):
         self.browser.quit()
 
     def test_visit_site(self):
-        self.browser.get('http://app:8000/')
-        self.assertIn(self.browser.title, 'Home')
+        self.browser.get('http://web:5000/')
+        self.assertEqual(self.browser.title, 'Cheffy')
+
+
+if __name__ == '__main__':
+    unittest.main()
