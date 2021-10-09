@@ -1,5 +1,4 @@
 import requests
-
 from config import SPOON_API_KEY
 
 
