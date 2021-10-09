@@ -1,4 +1,6 @@
-# docker-compose exec web python tests/selenium_tests.py
+"""
+Usage in docker: docker-compose exec web python tests/selenium_tests.py
+"""
 
 import unittest
 from selenium import webdriver
