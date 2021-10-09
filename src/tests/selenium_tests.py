@@ -28,6 +28,14 @@ class SiteTest(unittest.TestCase):
         lists = self.driver.find_elements_by_class_name("card-title")
         self.assertEqual(len(lists), 10)
 
+    def test_click_search_result(self):
+        self.driver.get('http://web:5000/recipe?ingredients=mushroom')
+        links = self.driver.find_elements_by_link_text("See recipe...")
+        links[0].click()
+        WebDriverWait(self.driver, 15).until(EC.url_changes('http://web:5000/recipe?ingredients=mushroom'))
+        img_element = self.driver.find_element_by_class_name("card-img-top")
+        self.assertIn('spoonacular.com', img_element.get_attribute('src'))
+
 
 if __name__ == '__main__':
     unittest.main()
