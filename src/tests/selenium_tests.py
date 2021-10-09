@@ -15,10 +15,12 @@ class SiteTest(unittest.TestCase):
         self.driver.quit()
 
     def test_visit_site(self):
+        # Test homepage visit
         self.driver.get('http://web:5000/')
         self.assertEqual(self.driver.title, 'Cheffy')
 
     def test_search(self):
+        # Test search recipe
         self.driver.get('http://web:5000/')
         search_field = self.driver.find_element_by_id("search")
         search_field.send_keys("mushroom")
@@ -31,6 +33,7 @@ class SiteTest(unittest.TestCase):
         self.assertEqual(len(lists), 10)
 
     def test_click_search_result(self):
+        # Test getting to a specific recipe page
         self.driver.get('http://web:5000/recipe?ingredients=mushroom')
         links = self.driver.find_elements_by_link_text("See recipe...")
         links[0].click()
