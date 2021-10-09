@@ -7,3 +7,4 @@ flask-cors
 six
 flask-login
 Flask-SQLAlchemy==2.5.1
+selenium==3.141.0
