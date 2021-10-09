@@ -97,7 +97,7 @@ def callback_handling():
         'name': userinfo['name'],
         'picture': userinfo['picture']
     }
-    return redirect('/pantry')
+    return redirect('/')
 
 @app.route('/login')
 def login():
