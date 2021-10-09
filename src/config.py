@@ -4,11 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 # flask class instance
 app = Flask(__name__)
 
-# group api
-# API_KEY = '9e749e7df97047c38000f0f4addb64f9'
-
-# my api
-API_KEY = '67df1b0cf25e48ff8a5264da4cf20285'
+# api key:
+API_KEY = '9e749e7df97047c38000f0f4addb64f9'
 
 
 # database setup
