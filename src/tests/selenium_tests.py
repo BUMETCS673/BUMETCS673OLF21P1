@@ -33,8 +33,9 @@ class SiteTest(unittest.TestCase):
         links = self.driver.find_elements_by_link_text("See recipe...")
         links[0].click()
         WebDriverWait(self.driver, 15).until(EC.url_changes('http://web:5000/recipe?ingredients=mushroom'))
+        # make sure we are on recipe detail page with recipe image.
         img_element = self.driver.find_element_by_class_name("card-img-top")
-        self.assertIn('spoonacular.com', img_element.get_attribute('src'))
+        self.assertIn('spoonacular.com/recipeImages', img_element.get_attribute('src'))
 
 
 if __name__ == '__main__':
