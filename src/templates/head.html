@@ -46,8 +46,11 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="#">Profile</a></li>
-            <li><a class="dropdown-item" href="/login">Login/Sign-Up</a></li>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            {% if session == {} %}
+              <li><a class="dropdown-item" href="/login">Login/Sign-Up</a></li>
+            {% else %}
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            {% endif %}
           </ul>
         </li>
       </ul>

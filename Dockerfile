@@ -16,6 +16,7 @@ RUN apk add build-base
 RUN apk add --no-cache openssl-dev libffi-dev
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+ENV PYTHONUNBUFFERED=1
 EXPOSE 5000
 COPY . .
 WORKDIR /code/src
