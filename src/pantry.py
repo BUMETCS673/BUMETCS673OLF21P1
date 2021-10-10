@@ -102,4 +102,6 @@ if __name__ == "__main__":
     pm = PantryManager('Tim')
     pm.delPantryAll()
     pm.addPantry("apple, pear")
+    print (pm.getPantry())
     pm.delPantryItem(9252)
+    pm.delPantryUser()
