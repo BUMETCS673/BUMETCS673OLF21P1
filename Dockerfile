@@ -4,6 +4,7 @@
 FROM python:3.7-alpine
 WORKDIR /code
 ENV FLASK_RUN_HOST=0.0.0.0
+ENV PYTHONPATH "${PYTHONPATH}:/code:/code/src"
 # update apk repo
 RUN echo "http://dl-4.alpinelinux.org/alpine/v3.14/main" >> /etc/apk/repositories && \
     echo "http://dl-4.alpinelinux.org/alpine/v3.14/community" >> /etc/apk/repositories
