@@ -6,6 +6,7 @@ import unittest
 import responses
 from spoon import getRecipeDetail
 
+
 class TestGetRecipeDetail(unittest.TestCase):
     @responses.activate
     def testGetRecipeDetail(self):
