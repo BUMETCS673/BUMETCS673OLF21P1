@@ -9,4 +9,4 @@ if __name__ == '__main__':
     # app.secret_key = AUTH0_CLIENT_SECRET
 
     # start the app
-    app.run(debug=True, host = '127.0.0.1")
+    app.run(debug=True, host = '127.0.0.1')
