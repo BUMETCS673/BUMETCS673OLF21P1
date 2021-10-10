@@ -1,11 +1,18 @@
+from flask import session
 import requests
 from config import SPOON_API_KEY
 
 
-def searchRecipes(ingredients, diet, intolerances):
-    # basic request
-    req = f'https://api.spoonacular.com/recipes/complexSearch?' \
-          f'includeIngredients={ingredients}&apiKey={SPOON_API_KEY}'
+def searchRecipes(ingredients, diet, intolerances, allReq):
+    # search base
+    if allReq == None:
+        print('can use some of: ' + ingredients)
+        req = f'https://api.spoonacular.com/recipes/complexSearch?' \
+            f'includeIngredients={ingredients}&apiKey={SPOON_API_KEY}&sort=max-used-ingredients'
+    else:
+        print('must use all of: ' + ingredients)
+        req = f'https://api.spoonacular.com/recipes/complexSearch?' \
+            f'includeIngredients={ingredients}&apiKey={SPOON_API_KEY}'
 
     # do nothing
     if diet is None:
