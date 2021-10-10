@@ -20,6 +20,9 @@ ALGO = ["RS256"]
 # flask class instance
 app = Flask(__name__)
 
+# set secret key
+app.config.update(SECRET_KEY=AUTH0_CLIENT_SECRET)
+
 # database setup
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cheffy.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
