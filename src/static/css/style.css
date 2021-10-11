@@ -49,7 +49,14 @@ h1 {
     font-weight: 900;
 }
 
-.searchBox, .searchResult, .dropdown-item {
+.btn-secondary {
+    background-color: #eeeeeeff;
+    border: none;
+    color: black;
+;
+}
+
+.searchBox, .searchResult, .dropdown-item, .aboutBox {
     background-color: #fcfcfc;
     color: #4f575b;
     font-family: 'Source Sans Pro', sans-serif;

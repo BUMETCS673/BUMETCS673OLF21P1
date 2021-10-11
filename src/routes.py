@@ -2,7 +2,7 @@ from urllib.parse import urlencode
 from flask import render_template, request, redirect, url_for, session
 from config import app
 from pantry import PantryManager
-from spoon import searchRecipes, getRecipeDetail
+from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
     AUTH0_CLIENT_ID
 
@@ -23,7 +23,17 @@ def showRecipes():
     ingredients = request.args.get('ingredients')
     diet = request.args.get('diet')
     intolerances = request.args.get('intolerances')
-    results = searchRecipes(ingredients, diet, intolerances)
+    allReq = request.args.get('searchType')
+    usePantry = request.args.get('incPantry')
+    # had to collect pantry ingredients here to avoid circular ref
+    if (usePantry != None) and (session != {}):
+        pm = PantryManager(session['profile']['user_id'])
+        if ingredients != '':
+            ingredients = ingredients + ',' + pm.getPantry()
+        else:
+            ingredients = pm.getPantry()
+    print(ingredients)
+    results = searchRecipes(ingredients, diet, intolerances, allReq)
     # set second argument to pass the data
     return render_template('recipe.html', results=results)
 
@@ -31,13 +41,15 @@ def showRecipes():
 @app.route("/recipe/<recipe_id>")
 def recipeDetail(recipe_id):
     data = getRecipeDetail(recipe_id)
-    return render_template('recipe_detail.html', recipe=data)
-
+    similarRecipeID = getSimilarRecipeID(recipe_id)
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID)
 
 @app.route("/pantry")
 def pantry():
     # set user and create Pantry Manager
-    user = "Tim"  # for testing purposes
+    user = "TestUser"  # for testing purposes
+    if session != {}:
+        user = session['profile']['user_id']
     pm = PantryManager(user)
 
     # handle if ingredients are added
@@ -49,24 +61,12 @@ def pantry():
     pantryItems = pm.dispPantry()
     return render_template("pantry.html", items=pantryItems)
 
-
-# @app.route("/pantry/add", methods = ['POST'])
-# def pantry_add():
-#         # set user and create Pantry Manager
-#     user = "Tim"    # for testing purposes
-#     pm = PantryManager(user)
-#     ingredients = request.args.get('ingredients')
-#     print("ing: " + ingredients)
-#     if ingredients != None:
-#         pm.addPantry(ingredients)
-
-#     return redirect(url_for('pantry'))
-
-
 @app.route("/pantry/del/<id>", methods=['POST'])
 def pantryDel(id):
     # set user and create Pantry Manager
-    user = "Tim"  # for testing purposes
+    user = "TestUser"  # for testing purposes
+    if session != {}:
+        user = session['profile']['user_id']
     pm = PantryManager(user)
     pm.delPantryItem(id)
     return redirect(url_for('pantry'))
@@ -75,7 +75,9 @@ def pantryDel(id):
 @app.route("/pantry/del_all/", methods=['POST'])
 def pantryDelAll():
     # set user and create Pantry Manager
-    user = "Tim"  # for testing purposes
+    user = "TestUser"  # for testing purposes
+    if session != {}:
+        user = session['profile']['user_id']
     pm = PantryManager(user)
     pm.delPantryUser()
     return redirect(url_for('pantry'))
