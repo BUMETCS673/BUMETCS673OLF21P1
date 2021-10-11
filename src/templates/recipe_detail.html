@@ -1,21 +1,19 @@
 {% include "head.html" %}
 <div class="container rounded" id="resippy">
 
-    <div class="row" id="recipeTitle">
-
-        <div>
-            <h1 id="recipeTitle">{{recipe.title}}</h1>
-        </div>
-    </div>
-
-    <div>
-        <form action="/similar_recipe/{{recipe.id}}">
-            <div class="search-box">
-                <param name="recipe_id" value={{recipe.id}}>
-                <button type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
+    <div class="row" >
+        <div class="col-6" id="recipeTitle">
+            <div>
+                <h1 id="recipeTitle">{{recipe.title}}</h1>
             </div>
-       </form>
-   </div>
+        </div>
+        <div class="mt-1 col-6">
+            <form action="/similar_recipe/{{recipe.id}}">
+                    <param name="recipe_id" value={{recipe.id}}>
+                    <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
+           </form>
+       </div>
+    </div>
 
     <div class="row">
         <div class="col-6">

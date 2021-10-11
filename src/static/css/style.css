@@ -49,6 +49,13 @@ h1 {
     font-weight: 900;
 }
 
+.btn-secondary {
+    background-color: #eeeeeeff;
+    border: none;
+    color: black;
+;
+}
+
 .searchBox, .searchResult, .dropdown-item, .aboutBox {
     background-color: #fcfcfc;
     color: #4f575b;
