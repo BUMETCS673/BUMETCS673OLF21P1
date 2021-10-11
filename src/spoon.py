@@ -63,7 +63,7 @@ def searchSpoon(ingredient):
         return False
 
 def getSimilarRecipe(recipe_id):
-    # Get a similar recipe based on the current recipe_id
+    # Return the similar recipe id based on the current recipe_id
     req = f'https://api.spoonacular.com/recipes/{recipe_id}/' \
           f'similar?&number=1&information?&apiKey={SPOON_API_KEY}'
     res = requests.get(req)
