@@ -92,12 +92,9 @@ def callback_handling():
     userinfo = resp.json()
 
     # Store the user information in flask session.
-    # TODO - change this from name and picture to pantry and recipes
     session['jwt_payload'] = userinfo
     session['profile'] = {
-        'user_id': userinfo['sub'],
-        'name': userinfo['name'],
-        'picture': userinfo['picture']
+        'user_id': userinfo['sub']
     }
     return redirect('/')
 
