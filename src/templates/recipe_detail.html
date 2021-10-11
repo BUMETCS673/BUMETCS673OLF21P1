@@ -7,7 +7,7 @@
                 <h1 id="recipeTitle">{{recipe.title}}</h1>
             </div>
         </div>
-         {% if similarRecipeID != '' %}
+         {% if similarRecipeID != "None" %}
             <div class="mt-1 col-6">
                 <form action="/recipe/{{similarRecipeID}}">
                         <param name="recipe_id" value={{similarRecipeID}}>

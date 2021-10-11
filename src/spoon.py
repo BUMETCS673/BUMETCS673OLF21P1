@@ -68,7 +68,9 @@ def getSimilarRecipeID(recipe_id):
           f'similar?&number=1&information?&apiKey={SPOON_API_KEY}'
     res = requests.get(req)
     data = res.json()
-    data = data[0]
-    new_id = data['id']
-    print(new_id)
-    return new_id
+    if not data:
+        return "None"
+    else:
+        data = data[0]
+        new_id = data['id']
+        return new_id
