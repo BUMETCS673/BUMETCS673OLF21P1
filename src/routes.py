@@ -2,7 +2,7 @@ from urllib.parse import urlencode
 from flask import render_template, request, redirect, url_for, session
 from config import app
 from pantry import PantryManager
-from spoon import searchRecipes, getRecipeDetail
+from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
     AUTH0_CLIENT_ID
 
@@ -41,8 +41,8 @@ def showRecipes():
 @app.route("/recipe/<recipe_id>")
 def recipeDetail(recipe_id):
     data = getRecipeDetail(recipe_id)
-    return render_template('recipe_detail.html', recipe=data)
-
+    similarRecipeID = getSimilarRecipeID(recipe_id)
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID)
 
 @app.route("/pantry")
 def pantry():

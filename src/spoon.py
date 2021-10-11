@@ -38,12 +38,12 @@ def searchRecipes(ingredients, diet, intolerances, allReq):
 
 
 def getRecipeDetail(recipe_id):
+    # Get a specific recipe using recipe_id
     req = f'https://api.spoonacular.com/recipes/{recipe_id}/' \
           f'information?&apiKey={SPOON_API_KEY}'
     res = requests.get(req)
     data = res.json()
     return data
-
 
 def searchSpoon(ingredient):
     # api url
@@ -61,3 +61,16 @@ def searchSpoon(ingredient):
     else:
 
         return False
+
+def getSimilarRecipeID(recipe_id):
+    # Return the similar recipe id based on the current recipe_id
+    req = f'https://api.spoonacular.com/recipes/{recipe_id}/' \
+          f'similar?&number=1&information?&apiKey={SPOON_API_KEY}'
+    res = requests.get(req)
+    data = res.json()
+    if not data:
+        return "None"
+    else:
+        data = data[0]
+        new_id = data['id']
+        return new_id
