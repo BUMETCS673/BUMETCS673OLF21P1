@@ -7,12 +7,14 @@
                 <h1 id="recipeTitle">{{recipe.title}}</h1>
             </div>
         </div>
-        <div class="mt-1 col-6">
-            <form action="/similar_recipe/{{recipe.id}}">
-                    <param name="recipe_id" value={{recipe.id}}>
-                    <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
-           </form>
-       </div>
+         {% if similarRecipeID != '' %}
+            <div class="mt-1 col-6">
+                <form action="/recipe/{{similarRecipeID}}">
+                        <param name="recipe_id" value={{similarRecipeID}}>
+                        <button class="btn btn-secondary" type="submit"><i class="fa fa-search"></i>Find Similar Recipe</button>
+               </form>
+           </div>
+        {% endif %}
     </div>
 
     <div class="row">
