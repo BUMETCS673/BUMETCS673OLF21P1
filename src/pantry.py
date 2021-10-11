@@ -4,6 +4,7 @@ from spoon import searchSpoon
 
 
 class pantryItem():
+    # a class to hold information about a pantry item
     def __init__(self, ingName, ingId, ingPic):
         self.ingName = ingName
         self.ingId = ingId
@@ -17,18 +18,21 @@ class pantryItem():
 
 
 class PantryManager():
-
+    # a class to control pantry functions
     def __init__(self, user):
         self.currUser = user
 
     def addPantry(self, ingredient):
         # adds an ingredient to the pantry
 
+        # split entry into individual ingredients
         ingList = ingredient.split(',')
 
         for ing in ingList:
             ing = ing.strip()
 
+            # for each ingredient, verify existance in recipe API, then add to the user's pantry if
+            # found
             search = searchSpoon(ing)
             if search != False:
                 if Pantry.query.filter_by(userId=self.currUser,
@@ -44,7 +48,7 @@ class PantryManager():
                 print(ing + ' not found')
 
     def getPantry(self):
-        # returns a list of pantry item ids for current user
+        # returns a string of pantry item ids for current user
 
         # list to hold ing names
         ingList = []
@@ -52,6 +56,7 @@ class PantryManager():
         # if there is a user logged in
         if self.currUser != '':
 
+            # create a list of all of a user's ingredients
             if len(Pantry.query.filter_by(userId=self.currUser).all()) > 0:
                 for ing in Pantry.query.filter_by(userId=self.currUser).all():
                     ingList.append(ing.ingName)
@@ -65,6 +70,7 @@ class PantryManager():
             return False
 
     def dispPantry(self):
+        # returns a list of pantryItem objects - for UI display
         ingredientList = []
         for item in Pantry.query.filter_by(userId=self.currUser).order_by(
                 Pantry.ingName).all():
@@ -100,8 +106,10 @@ class PantryManager():
 
 if __name__ == "__main__":
     pm = PantryManager('Tim')
-    pm.delPantryAll()
-    pm.addPantry("apple, pear")
-    print (pm.getPantry())
-    pm.delPantryItem(9252)
+    pm.delPantryUser()
+    pm.addPantry("salmon")
+    item = pm.dispPantry()
+    print (item[0].ingName)
+    print (item[0].ingId)
+    print (item[0].ingPic)
     pm.delPantryUser()
