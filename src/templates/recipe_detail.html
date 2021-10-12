@@ -1,7 +1,7 @@
 {% include "head.html" %}
 <div class="container rounded" id="resippy">
 
-    <div class="row" >
+    <div class="row">
         <div class="col-6" id="recipeTitle">
             <div>
                 <h1 id="recipeTitle">{{recipe.title}}</h1>
@@ -75,7 +75,7 @@
             <div class="card rounded">
                 <h2 class="card-header">How to:</h2>
                 <div class="card-body">
-                  {% if recipe.analyzedInstructions != [] %}
+                    {% if recipe.analyzedInstructions != [] %}
                     {% for step in recipe.analyzedInstructions[0].steps %}
                     <div class="card-header">
                         Step #{{step.number}}
@@ -84,11 +84,11 @@
                         <li class="list-group-item">{{step.step}}</li>
                     </ul>
                     {% endfor %}
-                  {% else %}
-                  <ul class="list-group list-group-flush">
-                  <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
-                  </ul>
-                  {% endif %}
+                    {% else %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -33,7 +33,11 @@ def showRecipes():
             ingredients = ingredients + ',' + pm.getPantry()
         else:
             ingredients = pm.getPantry()
-    print(ingredients)
+    print('ing: ' + ingredients)
+
+    if ingredients == '':
+        results = []
+        return render_template('recipe.html', results=results)
     results = searchRecipes(ingredients, diet, intolerances, allReq)
     # set second argument to pass the data
     return render_template('recipe.html', results=results)
