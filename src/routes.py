@@ -7,10 +7,7 @@ from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
     AUTH0_CLIENT_ID
 
-# / route will show our index template
-from src.spoon import searchSpoon
-
-
+# /route will show our index template
 @app.route("/")
 def index():
     return render_template("index.html")
