@@ -2,11 +2,12 @@ from urllib.parse import urlencode
 from flask import render_template, request, redirect, url_for, session
 from config import app
 from pantry import PantryManager
+from favoriteRecipes import FavoriteRecipeManager
 from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
     AUTH0_CLIENT_ID
 
-# / route will show our index template
+# /route will show our index template
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -116,3 +117,47 @@ def logout():
     params = {'returnTo': url_for('index', _external=True),
               'client_id': AUTH0_CLIENT_ID}
     return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
+
+
+@app.route('/favorite_recipes')
+def getFavoriteRecipes():
+
+    userID = "9999"
+    db = FavoriteRecipeManager(userID)
+    favRecipes = db.getFavoriteRecipes()
+    print(favRecipes)
+    favRecipesList = favRecipes.split(", ")
+    print(favRecipes)
+    results = []
+    for recipe in favRecipesList:
+        print(recipe)
+        results.append(getRecipeDetail(recipe))
+
+    return render_template('favorite_recipes.html', recipes=results)
+
+
+@app.route('/recipe_detail/<recipe_id>')
+def favoriteThisRecipe(recipe_id):
+
+    userID = "9999"  # for testing purposes
+    # Take the given id and add it to the database
+    db = FavoriteRecipeManager(userID)
+    db.addFavoriteRecipe(recipe_id)
+
+    # get the recipe again
+    data = getRecipeDetail(recipe_id)
+    similarRecipeID = getSimilarRecipeID(recipe_id)
+    # now update the page to inform the user that they added the recipe to the database
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, message=True)
+
+@app.route('/remove_recipe/<recipe_id>')
+def removeFromFavorites(recipe_id):
+
+    userID = "9999"  # for testing purposes
+    # Take the given id and remove from database
+    db = FavoriteRecipeManager(userID)
+    db.delFavoriteRecipe(recipe_id)
+
+    return getFavoriteRecipes()
+
+

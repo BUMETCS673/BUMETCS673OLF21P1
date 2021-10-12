@@ -74,3 +74,4 @@ def getSimilarRecipeID(recipe_id):
         data = data[0]
         new_id = data['id']
         return new_id
+
