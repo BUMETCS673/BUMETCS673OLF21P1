@@ -1,39 +1,28 @@
 # Cheffy
 
-- Our application, Cheffy, is intended to recommend recipies to people who have leftover  
-ingredients in their fridge, or pantry, but don't know what to do with them. 
-When given a list of available ingredients, and their quantities, the 
-application will make a recipe suggestion that uses some or all of the ingredients. 
+- Cheffy is an application that is designed to help users utilize leftover ingredients from their fridge or pantry. When provided with a list of ingredients and a possible selection of dietary restrictions, this application will recommend recipes using some or all of the provided ingredients. The user can choose if the returned recipe must contain all of the ingredients or not). This app aims to help user find uses for ingredients that might otherwise go into the trash and to help minimize food waste.
 
-- Our application can also maintain an inventory of available ingredients based on
-past entries, and will notify the user when certain ingredients are expiring.
-A user will be able to notify the application if they enjoyed the recipe or not
-and future recommendations will be enhanced by the feedback. 
+- Cheffy will also allow the user to maintain a digital "pantry" of the ingredients that they have on hand. Items can be added to or removed from this pantry to match what is available to the user in real life. The user can use choose to add the contents of their pantry to any recipe search. 
 
-- In addition to recommending recipes, a user can search the database for recipes
-based on specific ingredients that they would like their recipe to contain. Recipes
-of interest will be savable to the user's profile, and a personal pantry will be
-accessible to the user (this is where they are able to catalogue their at-home
-ingredients).
+- Users will also be able to save recipes to a favorites list. If they encounter a recipe that they either like or want to try later, this gives them a means to keep track of them. This feature, along with the pantry feature, will be accessible to a logged in user.
 
-- Cheffy will also store recipes that the user indicated they've enjoyed. These will
-be used to recommend similar, but novel, recipes on the user's homepage when they
-login to Cheffy.
+- Finally, If a user comes across a recipe that interests them, there is a find similar function that will allow the user to see recipes that share common traits to the one they are currently looking at.
 
-## How to run:
+## How to run Cheffy:
 - Make sure you have access to the internet.
 - Install the requirements found within the requirements.txt file.
-- Run the app.py script from a Python environment.
-- Using a web browser, navigate to the link provided by app.py in the command line window.
-- Login or create a new account to gain access to the application.
+- Run the run.py script from a Python environment.
+- Using a web browser, navigate to the link provided by run.py in the command line window (default: 127.0.0.1:5000).
+- All users will be able to search for recipes by entering a list of ingredients
+- Users with accounts will also be able to access the pantry and favorites functions on pantry and favorites pages.
 
 ## GitHub repository:
 https://github.com/BUMETCS673/BUMETCS673OLF21P1
 
 ## This project is maintained by: 
 - Kyle Mabry
-- Justing Fanning
+- Justin Fanning
 - Jean Shalenkova
-- Andrew Fish
 - Aidan Duffy
 - Yanru Zhu
+
