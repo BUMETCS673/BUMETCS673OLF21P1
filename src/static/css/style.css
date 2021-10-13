@@ -11,6 +11,7 @@ nav {
     background-image: linear-gradient(to bottom, white, #0000 30%);
 }
 
+
 h1 {
     color:black;
     font-family: 'Playfair Display', serif;
@@ -27,6 +28,10 @@ h1 {
 }
 #resippy {
     background-color: #fcfcfc;
+}
+
+.navbar-toggler {
+    background-color: #ecc343;
 }
 
 .card {
