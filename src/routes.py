@@ -127,14 +127,15 @@ def getFavoriteRecipes():
         userID = session['profile']['user_id']
     db = FavoriteRecipeManager(userID)
     favRecipes = db.getFavoriteRecipes()
-    print(favRecipes)
     favRecipesList = favRecipes.split(", ")
-    print(favRecipes)
     results = []
-    for recipe in favRecipesList:
-        print(recipe)
-        results.append(getRecipeDetail(recipe))
-
+    # check for empty favorites list
+    if (favRecipesList[0] != ''):
+        for recipe in favRecipesList:
+            print(recipe)
+            results.append(getRecipeDetail(recipe))
+    else:
+        results = []
     return render_template('favorite_recipes.html', recipes=results)
 
 
