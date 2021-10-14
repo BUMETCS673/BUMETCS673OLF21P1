@@ -17,11 +17,13 @@
            </div>
         {% endif %}
     </div>
-        <form action="/recipe_detail/{{recipe.id}}">
-                <button type="submit" class="btn">Favorite This recipe</button>
-        </form>
-        {%  if message == True %}
-            This recipe has been saved to your favorites
+        {% if session != {} %}
+            <form action="/recipe_detail/{{recipe.id}}">
+                    <button type="submit" class="btn">Favorite This recipe</button>
+            </form>
+            {%  if message == True %}
+                This recipe has been saved to your favorites
+            {%  endif %}
         {%  endif %}
     </div>
 
