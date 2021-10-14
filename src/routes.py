@@ -122,24 +122,29 @@ def logout():
 @app.route('/favorite_recipes')
 def getFavoriteRecipes():
 
-    userID = "9999"
+    userID = "TestUser"  # for testing purposes
+    if session != {}:
+        userID = session['profile']['user_id']
     db = FavoriteRecipeManager(userID)
     favRecipes = db.getFavoriteRecipes()
-    print(favRecipes)
     favRecipesList = favRecipes.split(", ")
-    print(favRecipes)
     results = []
-    for recipe in favRecipesList:
-        print(recipe)
-        results.append(getRecipeDetail(recipe))
-
+    # check for empty favorites list
+    if (favRecipesList[0] != ''):
+        for recipe in favRecipesList:
+            print(recipe)
+            results.append(getRecipeDetail(recipe))
+    else:
+        results = []
     return render_template('favorite_recipes.html', recipes=results)
 
 
 @app.route('/recipe_detail/<recipe_id>')
 def favoriteThisRecipe(recipe_id):
 
-    userID = "9999"  # for testing purposes
+    userID = "TestUser"  # for testing purposes
+    if session != {}:
+        userID = session['profile']['user_id']
     # Take the given id and add it to the database
     db = FavoriteRecipeManager(userID)
     db.addFavoriteRecipe(recipe_id)
@@ -153,7 +158,9 @@ def favoriteThisRecipe(recipe_id):
 @app.route('/remove_recipe/<recipe_id>')
 def removeFromFavorites(recipe_id):
 
-    userID = "9999"  # for testing purposes
+    userID = "TestUser"  # for testing purposes
+    if session != {}:
+        userID = session['profile']['user_id']
     # Take the given id and remove from database
     db = FavoriteRecipeManager(userID)
     db.delFavoriteRecipe(recipe_id)
