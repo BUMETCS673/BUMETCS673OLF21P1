@@ -39,6 +39,11 @@ h1 {
     color: #4f575b;
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 400;
+    border:none;
+}
+
+.card-link {
+    color: black;
 }
 
 .navbar-brand, .nav-link {
