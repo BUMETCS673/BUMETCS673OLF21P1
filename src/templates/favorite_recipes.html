@@ -1,109 +1,108 @@
 {% include "head.html" %}
-
 <h1>Welcome to your Favorites</h1>
 <br>
 {% if recipes|length == 0 %}
-    <h2>You have no saved favorites yet</h2>
+<h2>You have no saved favorites yet</h2>
 {% else %}
-
-    {% for recipe in recipes %}
-    <div class="container rounded" id="resippy">
-
-        <div class="row" >
-            <div class="col-6" id="recipeTitle">
-                <div>
-                    <h1 id="recipeTitle">{{recipe.title}}</h1>
-                </div>
+{% for recipe in recipes %}
+<div class="container rounded" id="resippy">
+   <div class="row" >
+      <div class="col-6" id="recipeTitle">
+         <div>
+            <h1 id="recipeTitle">{{recipe.title}}</h1>
+         </div>
+      </div>
+      <div>
+   </div>
+  <div class="row">
+      {% if similarRecipeID != "None" %}
+      <div class="mt-1 col-6">
+         <form action="/recipe/{{similarRecipeID}}">
+            <param name="recipe_id" value={{similarRecipeID}}>
+            <button type="submit" class="btn">Find Similar Recipe</button>
+         </form>
+      </div>
+      {% endif %}
+      {% if session != {} %}
+      <div class="mt-1 col-6">
+         <form action="/recipe_detail/{{recipe.id}}">
+            <button type="submit" class="btn">Favorite This recipe</button>
+         </form>
+         {%  if message == True %}
+         This recipe has been saved to your favorites
+         {%  endif %}
+      </div>
+      {%  endif %}
+   </div>
+   <div class="row">
+      <div class="col-6">
+         <div class="card mt-1 rounded">
+            <img src="{{recipe.image}}" class="card-img-top" alt="{{recipe.title}}">
+            <div class="card-body">
+               <p class="card-text">{{recipe.summary|striptags}}</p>
             </div>
-        <div>
-            {% if similarRecipeID != "None" %}
-                <div class="mt-1 col-6">
-                    <form action="/recipe/{{recipe.id}}">
-                            <param name="recipe_id" value={{similarRecipeID}}>
-                            <button type="submit" class="btn">Find Similar Recipe</button>
-                </form>
+            <ul class="list-group d-flex flex-row flex-wrap">
+               <li class="list-group-item flex-fill">Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif %}
+               </li>
+               <li class="list-group-item flex-fill">Vegan: {% if recipe.vegan %}✅{% else %}⛔{% endif %}</li>
+               <li class="list-group-item flex-fill">Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif %}
+               </li>
+               <li class="list-group-item flex-fill">Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{% endif
+                  %}
+               </li>
+               <li class="list-group-item flex-fill">Cheap: {% if recipe.cheap %}✅{% else %}⛔{% endif %}</li>
+               <li class="list-group-item flex-fill">Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{% endif
+                  %}
+               </li>
+               <li class="list-group-item flex-fill">Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{% endif
+                  %}
+               </li>
+            </ul>
+            <div class="card-body d-flex justify-content-between">
+               <span>Ready in: {{recipe.readyInMinutes}} minutes</span>
+               <span><a href="{{recipe.sourceUrl}}" class="card-link">Source</a></span>
             </div>
-            {% endif %}
-        </div>
-            <form action="/remove_recipe/{{recipe.id}}">
-                    <button type="submit" class="btn">Remove from Favorites</button>
-            </form>
-            {%  if message == True %}
-                This recipe has been removed from your favorites
-            {%  endif %}
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <div class="card mt-1 rounded">
-                    <img src="{{recipe.image}}" class="card-img-top" alt="{{recipe.title}}">
-                    <div class="card-body">
-                        <p class="card-text">{{recipe.summary|striptags}}</p>
-                    </div>
-                    <ul class="list-group d-flex flex-row flex-wrap">
-                        <li class="list-group-item flex-fill">Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif %}
-                        </li>
-                        <li class="list-group-item flex-fill">Vegan: {% if recipe.vegan %}✅{% else %}⛔{% endif %}</li>
-                        <li class="list-group-item flex-fill">Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif %}
-                        </li>
-                        <li class="list-group-item flex-fill">Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{% endif
-                            %}</li>
-                        <li class="list-group-item flex-fill">Cheap: {% if recipe.cheap %}✅{% else %}⛔{% endif %}</li>
-                        <li class="list-group-item flex-fill">Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{% endif
-                            %}</li>
-                        <li class="list-group-item flex-fill">Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{% endif
-                            %}</li>
-                    </ul>
-                    <div class="card-body d-flex justify-content-between">
-                        <span>Ready in: {{recipe.readyInMinutes}} minutes</span>
-                        <span><a href="{{recipe.sourceUrl}}" class="card-link">Source</a></span>
-                    </div>
-                </div>
+         </div>
+      </div>
+      <div class="col-6">
+         <div class="card mb-3 mt-1 rounded">
+            <h2 class="card-header" data-toggle="collapse" href="#ingredients" role="button" aria-expanded="false" aria-controls="ingredients">
+               Ingredients <i class="bi bi-arrow-down"></i>
+            </h2>
+            <div class="card-body collapse" id="ingredients">
+               <ul class="list-group d-flex flex-row flex-wrap">
+                  {% for ingredient in recipe.extendedIngredients %}
+                  <li class="list-group-item" style="float:left; width:12rem;">
+                     <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}"
+                        alt="{{ingredient.originalString|capitalize}}"
+                        style="max-height: 5rem; object-fit: contain; float: left;" />{{ingredient.originalString|capitalize}}
+                  </li>
+                  {% endfor%}
+               </ul>
             </div>
-
-            <div class="col-6">
-                <div class="card mb-3 mt-1 rounded">
-                    <h2 class="card-header" type="button" data-bs-toggle="collapse" data-bs-target="#ingredients"
-                        aria-expanded="false" aria-controls="ingredients">Ingredients <i class="bi bi-arrow-down"></i></h2>
-                    <div class="card-body collapse" id="ingredients">
-                        <ul class="list-group d-flex flex-row flex-wrap">
-
-                            {% for ingredient in recipe.extendedIngredients %}
-
-                            <li class="list-group-item" style="float:left; width:12rem;">
-                                <img src="https://spoonacular.com/cdn/ingredients_100x100/{{ingredient.image}}"
-                                    alt="{{ingredient.originalString|capitalize}}"
-                                    style="max-height: 5rem; object-fit: contain; float: left;" />{{ingredient.originalString|capitalize}}
-                            </li>
-                            {% endfor%}
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card rounded">
-                    <h2 class="card-header">How to:</h2>
-                    <div class="card-body">
-                    {% if recipe.analyzedInstructions != [] %}
-                        {% for step in recipe.analyzedInstructions[0].steps %}
-                        <div class="card-header">
-                            Step #{{step.number}}
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">{{step.step}}</li>
-                        </ul>
-                        {% endfor %}
-                    {% else %}
-                    <ul class="list-group list-group-flush">
-                    <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
-                    </ul>
-                    {% endif %}
-                    </div>
-                </div>
+         </div>
+         <div class="card rounded">
+            <h2 class="card-header">How to:</h2>
+            <div class="card-body">
+               {% if recipe.analyzedInstructions != [] %}
+               {% for step in recipe.analyzedInstructions[0].steps %}
+               <div class="card-header">
+                  Step #{{step.number}}
+               </div>
+               <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{step.step}}</li>
+               </ul>
+               {% endfor %}
+               {% else %}
+               <ul class="list-group list-group-flush">
+                  <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
+               </ul>
+               {% endif %}
             </div>
-        </div>
-    </div>
-    {% endfor %}
-
+         </div>
+      </div>
+   </div>
+</div>
+{% endfor %}
 {% endif %}
-
 {% include "foot.html" %}
