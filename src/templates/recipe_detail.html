@@ -6,23 +6,25 @@
             <h1 id="recipeTitle">{{recipe.title}}</h1>
          </div>
       </div>
-      <div>
-         {% if similarRecipeID != "None" %}
-         <div class="mt-1 col-6">
-            <form action="/recipe/{{similarRecipeID}}">
-               <param name="recipe_id" value={{similarRecipeID}}>
-               <button type="submit" class="btn">Find Similar Recipe</button>
-            </form>
-         </div>
-         {% endif %}
+   </div>
+   <div class="row">
+      {% if similarRecipeID != "None" %}
+      <div class="mt-1 col-6">
+         <form action="/recipe/{{similarRecipeID}}">
+            <param name="recipe_id" value={{similarRecipeID}}>
+            <button type="submit" class="btn">Find Similar Recipe</button>
+         </form>
       </div>
+      {% endif %}
       {% if session != {} %}
-      <form action="/recipe_detail/{{recipe.id}}">
-         <button type="submit" class="btn">Favorite This recipe</button>
-      </form>
-      {%  if message == True %}
-      This recipe has been saved to your favorites
-      {%  endif %}
+      <div class="mt-1 col-6">
+         <form action="/recipe_detail/{{recipe.id}}">
+            <button type="submit" class="btn">Favorite This recipe</button>
+         </form>
+         {%  if message == True %}
+         This recipe has been saved to your favorites
+         {%  endif %}
+      </div>
       {%  endif %}
    </div>
    <div class="row">
