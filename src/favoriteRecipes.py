@@ -1,4 +1,4 @@
-from config import DB
+from src.config import DB
 from models import FavoriteRecipes
 
 
