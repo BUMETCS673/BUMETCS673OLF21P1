@@ -17,22 +17,20 @@
   <div class="row">
       {% if similarRecipeID != "None" %}
       <div class="mt-1 col-6">
-         <form action="/recipe/{{similarRecipeID}}">
-            <param name="recipe_id" value={{similarRecipeID}}>
-            <button type="submit" class="btn">Find Similar Recipe</button>
+         <form action="/recipe/{{recipe.id}}">
+         <param name="recipe_id" value={{similarRecipeID}}>
+         <button type="submit" class="btn">Find Similar Recipe</button>
          </form>
       </div>
       {% endif %}
-      {% if session != {} %}
-      <div class="mt-1 col-6">
-         <form action="/recipe_detail/{{recipe.id}}">
-            <button type="submit" class="btn">Favorite This recipe</button>
-         </form>
+     <div class="mt-1 col-6">
+        <form action="/remove_recipe/{{recipe.id}}">
+         <button type="submit" class="btn">Remove from Favorites</button>
+        </form>
          {%  if message == True %}
-         This recipe has been saved to your favorites
+             This recipe has been removed from your favorites
          {%  endif %}
-      </div>
-      {%  endif %}
+     </div>
    </div>
    <div class="row">
       <div class="col-6">
