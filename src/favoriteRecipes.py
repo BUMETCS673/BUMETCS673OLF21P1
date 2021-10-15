@@ -60,10 +60,10 @@ class FavoriteRecipeManager():
 if __name__ == "__main__":
     # Debugging/testing
     fav_recipe_manager = FavoriteRecipeManager(5555)
-    fav_recipe_manager.addFavoriteRecipe(6666, "fun food", "link//")
-    fav_recipe_manager.addFavoriteRecipe(7777)
+    # fav_recipe_manager.addFavoriteRecipe(6666, "fun food", "link//")
+    # fav_recipe_manager.addFavoriteRecipe(7777)
     print(fav_recipe_manager)
-    fav_recipe_manager.delFavoriteRecipe(7777)
+    # fav_recipe_manager.delFavoriteRecipe(7777)
     print(fav_recipe_manager)
     fav_recipe_manager.delFavAll()
     print(fav_recipe_manager)
