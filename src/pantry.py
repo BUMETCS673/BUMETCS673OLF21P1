@@ -81,7 +81,7 @@ class PantryManager():
     def delPantryItem(self, id):
         ''' delete item with target id value '''
         if Pantry.query.filter_by(userId=self.currUser,
-                                  ingId=id).first() != None:
+                                  ingId=id).all() != None:
             DB.session.delete(
                 Pantry.query.filter_by(userId=self.currUser, ingId=id).first())
             DB.session.commit()
