@@ -18,7 +18,7 @@
         {% endif %}
     </div>
         {% if session != {} %}
-            <form action="/recipe_detail/{{recipe.id}}">
+            <form action={{ url_for("favoriteThisRecipe", recipe_id=recipe.id, recipe_title=recipe.title, recipe_image=recipe.image) }}>
                     <button type="submit" class="btn">Favorite This recipe</button>
             </form>
             {%  if message == True %}

@@ -128,26 +128,32 @@ def getFavoriteRecipes():
     db = FavoriteRecipeManager(userID)
     favRecipes = db.getFavoriteRecipes()
     favRecipesList = favRecipes.split(", ")
-    results = []
+    favRecipesListFinal = []
     # check for empty favorites list
-    if (favRecipesList[0] != ''):
-        for recipe in favRecipesList:
-            print(recipe)
-            results.append(getRecipeDetail(recipe))
+    for recipe in favRecipesList:
+        recipeSplit = recipe.split(" ")
+        title = recipeSplit[1:len(recipeSplit) - 1]
+        title = " ".join(map(str, title))
+        recipeDict = {"id": recipeSplit[0], "title": title,
+                  "image": recipeSplit[-1]}
+        favRecipesListFinal.append(recipeDict)
+    print(favRecipesListFinal)
+    if favRecipesListFinal[0] != '':
+        return render_template('favorite_recipes.html', recipes=favRecipesListFinal)
     else:
-        results = []
-    return render_template('favorite_recipes.html', recipes=results)
+        return favRecipesListFinal
 
 
-@app.route('/recipe_detail/<recipe_id>')
-def favoriteThisRecipe(recipe_id):
+@app.route('/add_to_favorites/<int:recipe_id>/<recipe_title>/<path:recipe_image>', methods=['GET'])
+def favoriteThisRecipe(recipe_id=None, recipe_title=None, recipe_image=None):
 
+    print("ran")
     userID = "TestUser"  # for testing purposes
     if session != {}:
         userID = session['profile']['user_id']
     # Take the given id and add it to the database
     db = FavoriteRecipeManager(userID)
-    db.addFavoriteRecipe(recipe_id)
+    db.addFavoriteRecipe(recipe_id, recipe_title, recipe_image)
 
     # get the recipe again
     data = getRecipeDetail(recipe_id)
@@ -166,5 +172,4 @@ def removeFromFavorites(recipe_id):
     db.delFavoriteRecipe(recipe_id)
 
     return getFavoriteRecipes()
-
 
