@@ -53,6 +53,27 @@ class FavoriteRecipeManager():
             print('No current User')
             return False
 
+    def getFavIdString(self):
+        """returns a comma seperated list of a users fav Ids"""
+
+        # List to hold favorite recipes
+        recipeList = []
+
+        # If there is a user logged in
+        if self.userID != '':
+
+            if len(FavoriteRecipes.query.filter_by(userID=self.userID).all()) > 0:
+                for recipe in FavoriteRecipes.query.filter_by(userID=self.userID).all():
+                    recipeList.append(str(recipe.recipeID))
+            # Convert list to string
+            retString = ', '.join(recipeList)
+            return retString
+
+        # No user logged in
+        else:
+            print('No current User')
+            return False
+
     def dispFavorites(self):
         # returns a list of pantryItem objects - for UI display
         favoritetList = []

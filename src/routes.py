@@ -46,9 +46,16 @@ def showRecipes():
 
 @app.route("/recipe/<recipe_id>")
 def recipeDetail(recipe_id):
+    # fav flag
+    recId = ''
+    if session != {}:
+        user = session['profile']['user_id']
+        fm = FavoriteRecipeManager(user)
+        recId = fm.getFavIdString()
+
     data = getRecipeDetail(recipe_id)
     similarRecipeID = getSimilarRecipeID(recipe_id)
-    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID)
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, favs = recId)
 
 @app.route("/profile")
 def profile():
@@ -118,10 +125,11 @@ def favoriteThisRecipe():
     # temps for imported values
     data = ast.literal_eval(request.form["recipe"])
     similarRecipeID = request.form['similarRec']
+    recId = db.getFavIdString()
 
     # now update the page to inform the user that they added the recipe to the database
     print("route ok")
-    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, message=True)
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message="Add")
 
 @app.route('/remove_recipe', methods = ['POST'])
 def removeFromFavorites():
@@ -143,6 +151,24 @@ def removeAllFavs():
     db = FavoriteRecipeManager(userID)
     db.delFavAll()
     return redirect(url_for('profile'))
+
+@app.route("/detailDelFav", methods = ['POST'])
+def detailDelFav():
+
+    userID = "TestUser"  # for testing purposes
+    if session != {}:
+        userID = session['profile']['user_id']
+        # Take the given id and add it to the database
+        db = FavoriteRecipeManager(userID)
+        db.delFavoriteRecipe(request.form['favId'])
+
+    # temps for imported values
+    data = ast.literal_eval(request.form["recipe"])
+    similarRecipeID = request.form['similarRec']
+    recId = db.getFavIdString()
+
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message="Remove")
+
 
 
 # Here we're using the /callback route.
