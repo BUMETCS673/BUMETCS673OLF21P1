@@ -11,7 +11,7 @@
                 {% for recipe in recipes %}
 
                 <li class="list-group-item" style="float:left; width:12rem;">
-                    <a href="{{recipe.image}}"><img src="{{recipe.image}}" alt="{{recipe.title}}"
+                    <a href="/recipe/{{result.id}}"><img src="{{recipe.image}}" alt="{{recipe.title}}"
                             style="max-height: 5rem; object-fit: contain; float: left;" /></a> {{recipe.title}}
                     <form action="/remove_recipe/{{recipe.id}}">
                         <button type="submit" class="btn">Remove?</button>
