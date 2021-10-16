@@ -31,24 +31,20 @@
               <a class="btn" href="/about">ABOUT</a>
             </li>
           </ul>
+          <div>
+               <li class="nav-item d-flex dropdown me-1 my-1">
+                  <button class="btn dropdown-toggle me-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">YOUR CHEFFY</button>
+                  <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
+                      {% if session == {} %}
+                        <li><a class="dropdown-item" href="/login">Login/Sign-Up</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                      {% endif %}
+                  </ul>
+               </li>
+            </div>
       </div>
-      <ul>
-        <li class="nav-item d-flex dropdown me-1">
-          <a class="btn dropdown-toggle me-2" href="#" id="navbarDropdownMenuLink" role="button"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            YOUR CHEFFY
-          </a>
-          <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
-
-            {% if session == {} %}
-            <li><a class="dropdown-item" href="/login">Login/Sign-Up</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="/profile">Profile</a></li>
-            <li><a class="dropdown-item" href="/logout">Logout</a></li>
-            {% endif %}
-          </ul>
-        </li>
-      </ul>
     </nav>
 
     <div class="container">
