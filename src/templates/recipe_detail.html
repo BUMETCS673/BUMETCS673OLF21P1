@@ -17,25 +17,37 @@
                 {% endif %}
             </span>
             <span class="me-2 mt-3">
-                {% if session != {} %}
-                <form action="{{ url_for('favoriteThisRecipe') }}" method=post>
-                    <input type='hidden' name='favId' value="{{recipe.id}}">
-                    <input type='hidden' name='favName' value="{{recipe.title}}">
-                    <input type='hidden' name='favPic' value="{{recipe.image}}">
-                    <input type='hidden' name='recipe' value="{{recipe}}">
-                    <input type='hidden' name='similarRec' value="{{similarRecipeID}}">
-                    {% if message == True %}
-                    <span class="me-1">Saved to favorites! </span>
-                    <button type="submit" class="btn"><i class="bi bi-heart-fill"></i> </button>
-                    {% else %}
-                    <button type="submit" class="btn"><i class="bi bi-heart"></i> </button>
-                    {% endif %}
-                </form>
 
+                {% if session != {} %}
+                    {% if recipe.id|string in favs %}
+                        <form action="{{ url_for('detailDelFav') }}" method=post>
+                            <input type='hidden' name='favId' value="{{recipe.id}}">
+                            <input type='hidden' name='favName' value="{{recipe.title}}">
+                            <input type='hidden' name='favPic' value="{{recipe.image}}">
+                            <input type='hidden' name='recipe' value="{{recipe}}">
+                            <input type='hidden' name='similarRec' value="{{similarRecipeID}}">
+                            {% if message == "Add" %}
+                                <span class="me-1">Saved to favorites! </span>
+                            {% endif %}
+                            <button type="submit" class="btn"><i class="bi bi-heart-fill"></i> </button>
+                        </form>
+
+                    {% else %}
+                        <form action="{{ url_for('favoriteThisRecipe') }}" method=post>
+                            <input type='hidden' name='favId' value="{{recipe.id}}">
+                            <input type='hidden' name='favName' value="{{recipe.title}}">
+                            <input type='hidden' name='favPic' value="{{recipe.image}}">
+                            <input type='hidden' name='recipe' value="{{recipe}}">
+                            <input type='hidden' name='similarRec' value="{{similarRecipeID}}">
+                            {% if message == "Remove" %}
+                                <span class="me-1">Removed from favorites! </span>
+                            {% endif %}
+                            <button type="submit" class="btn"><i class="bi bi-heart"></i> </button>
+                        </form>
+                    {% endif %}
                 {% endif %}
             </span>
         </div>
-
 
     <div class="row">
         <div class="col-6">
