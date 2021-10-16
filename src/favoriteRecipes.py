@@ -65,6 +65,12 @@ class FavoriteRecipeManager():
             print("Item does not exist in User's favorite recipes to delete")
             return False
 
+    def delFavUser(self):
+        # delete all items in current user's pantry
+        for fav in FavoriteRecipes.query.filter_by(userID=self.userID).all():
+            DB.session.delete(fav)
+        DB.session.commit()
+
     def delFavAll(self):
         """Deletes all of a user's favorite recipes"""
         for recipe in FavoriteRecipes.query.all():
