@@ -16,12 +16,12 @@ class SiteTest(unittest.TestCase):
     def tearDown(self):
         self.driver.quit()
 
-    def test_visit_site(self):
+    def testVisitSite(self):
         # Test homepage visit
         self.driver.get('http://web:5000/')
         self.assertEqual(self.driver.title, 'Cheffy')
 
-    def test_search(self):
+    def testSearch(self):
         # Test search recipe
         self.driver.get('http://web:5000/')
         search_field = self.driver.find_element_by_id("search")
@@ -34,7 +34,7 @@ class SiteTest(unittest.TestCase):
         lists = self.driver.find_elements_by_class_name("card-title")
         self.assertEqual(len(lists), 10)
 
-    def test_click_search_result(self):
+    def testClickSearchResult(self):
         # Test getting to a specific recipe page
         self.driver.get('http://web:5000/recipe?ingredients=mushroom')
         links = self.driver.find_elements_by_link_text("See recipe...")
