@@ -48,9 +48,10 @@
 
         </div> -->
         <div class="card mb-3 mt-1 rounded">
-            <h2 class="card-header">Pantry Contents <i class="bi bi-arrow-down"></i>
+            <h2 class="card-header" data-toggle="collapse" href="#pantry" role="button" aria-expanded="false" aria-controls="pantry">Pantry Contents <i class="bi bi-arrow-down"></i>
             </h2>
-            <div class="card-body">
+
+            <div class="card-body" id="pantry">
                 <ul class="list-group d-flex flex-row flex-wrap">
 
                     {% for ing in items %}
