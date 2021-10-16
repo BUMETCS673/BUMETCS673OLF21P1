@@ -138,29 +138,13 @@ def getFavoriteRecipes():
         recipeDict = {"id": recipeSplit[0], "title": title,
                   "image": recipeSplit[-1]}
         favRecipesListFinal.append(recipeDict)
-    print(favRecipesListFinal)
-    if favRecipesListFinal[0] != '':
+
+
+    if favRecipesListFinal[0]['id'] != '':
         return render_template('favorite_recipes.html', recipes=favRecipesListFinal)
     else:
-        return favRecipesListFinal
-
-
-# @app.route('/add_to_favorites/<int:recipe_id>/<recipe_title>/<path:recipe_image>', methods=['GET'])
-# def favoriteThisRecipe(recipe_id=None, recipe_title=None, recipe_image=None):
-
-#     print("ran")
-#     userID = "TestUser"  # for testing purposes
-#     if session != {}:
-#         userID = session['profile']['user_id']
-#     # Take the given id and add it to the database
-#     db = FavoriteRecipeManager(userID)
-#     db.addFavoriteRecipe(recipe_id, recipe_title, recipe_image)
-
-#     # get the recipe again
-#     data = getRecipeDetail(recipe_id)
-#     similarRecipeID = getSimilarRecipeID(recipe_id)
-#     # now update the page to inform the user that they added the recipe to the database
-#     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, message=True)
+        favRecipesListFinal = [] # otherwise this would be a dict with values
+        return render_template('favorite_recipes.html', recipes=favRecipesListFinal)
 
 @app.route('/favoriteThisRecipe', methods = ['POST'])
 def favoriteThisRecipe():
