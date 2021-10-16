@@ -1,2 +1,123 @@
-{% include "pantry.html" %}
-{% include "favorite_recipes.html" %}
+{% include "head.html" %}
+
+<div class="row">
+    <div class="col-6">
+        <!-- <section class="pantry-search-container">
+            <h1>Welcome to your Pantry</h1>
+            <p style="margin-bottom:1px;">Enter ingredients you have on hand!</p>
+            <p style="font-size:12px;margin-top:5px;">(Separate ingredients with commas)</p> -->
+
+        <form action="{{ url_for('pantryAdd') }}" method=post class="searchBox p-2 rounded">
+            <h1>Your Pantry</h1>
+            <div class="mb-3">
+                <label for="search" class="form-label">Enter ingredients you have on hand!</label>
+                <input type="text" class="form-control" id="search" placeholder="e.g. broccoli,mushroom"
+                    name="ingredients">
+                <div id="searchHelp" class="form-text">(Separate ingredients by commas)</div>
+            </div>
+            <button type="submit" class="btn"><i class="bi bi-plus"></i> Add</button>
+        </form>
+
+
+        <!-- <form action="{{ url_for('pantryAdd') }}" method=post>
+                <div class="search-box">
+                    <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
+                    <button type="submit"><i class="fa fa-search"></i>Add</button>
+                </div>
+            </form> -->
+
+        <!-- <div class="pantry-container" style="margin-bottom:80px">
+            <br>
+            <h1>Contents of your Pantry</h1>
+
+            <form action="{{ url_for('pantryDelAll') }}" method=post>
+                <input class="btn" type="submit" value="Empty Pantry">
+            </form>
+
+            {% for ing in items %}
+            <h2><img class="image"
+                    src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}">&emsp;{{ing.ingName}}
+            </h2>
+
+            <form action="{{ url_for('pantryDel', id = ing.ingId) }}" method=post>
+                <input class="btn" type="submit" value="Delete">
+            </form>
+
+
+            {% endfor %}
+
+        </div> -->
+        <div class="card mb-3 mt-1 rounded">
+            <h2 class="card-header d-flex">Pantry Contents <i class="bi bi-arrow-down"></i>
+                <form action="{{ url_for('pantryDelAll')}}" method=post>
+                    <input class="btn" type="submit" value="Clear Pantry">
+                </form>
+            </h2>
+            <div class="card-body">
+                {% if items|length == 0 %}
+                <h2>Your pantry is empty</h2>
+                {% else %}
+                <ul class="list-group d-flex flex-row flex-wrap">
+
+                    {% for ing in items %}
+
+                    <li class="list-group-item" style="float:left; width:12rem;">
+                        <img src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}"
+                            alt="{{ing.ingName}}"
+                            style="max-height: 5rem; object-fit: contain; float: left;" />&emsp;{{ing.ingName}}
+                        <form action="{{ url_for('pantryDel')}}" method=post>
+                            <input type='hidden' name='ingId' value="{{ing.ingId}}">
+                            <input class="btn" type="submit" value="Remove">
+                        </form>
+                    </li>
+                    {% endfor%}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-6">
+        <div class="card mb-3 mt-1 rounded">
+            <h1 class="card-header d-flex">Favorites <i class="bi bi-heart"></i>
+                <form action="{{ url_for('removeAllFavs')}}" method=post>
+                    <input class="btn" type="submit" value="Clear Favorites">
+                </form>
+            </h1>
+            <div class="card-body">
+                {% if recipes|length == 0 %}
+                <h2>You have no saved favorites yet</h2>
+                {% else %}
+                <ul class="list-group d-flex flex-row flex-wrap">
+    
+                    {% for recipe in recipes %}
+    
+                    <li class="list-group-item" style="float:left; width:12rem;">
+                        <a href="/recipe/{{recipe.favId}}"><img src="{{recipe.favPic}}" alt="{{recipe.favName}}"
+                                style="max-height: 5rem; object-fit: contain; float: left;" /></a> {{recipe.favName}}
+
+                            <form action="{{ url_for('removeFromFavorites')}}" method=post>
+                            <input type='hidden' name='favId' value="{{recipe.favId}}">
+                            <button type="submit" class="btn">Remove</button>
+
+                            {% if message == True %}
+                            Removed from favorites!
+                            {% endif %}
+                        </form>
+                    </li>
+                    {% endfor%}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+{% include "foot.html" %}
+    

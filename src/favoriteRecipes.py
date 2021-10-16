@@ -90,17 +90,18 @@ class FavoriteRecipeManager():
 
 if __name__ == "__main__":
     # Debugging/testing
-    fav_recipe_manager = FavoriteRecipeManager(5555)
-    print(fav_recipe_manager)
-    # fav_recipe_manager.delFavoriteRecipe(7777)
-    print(fav_recipe_manager)
-    fav_recipe_manager.delFavAll()
-    print(fav_recipe_manager)
+    # fav_recipe_manager = FavoriteRecipeManager(5555)
+    # print(fav_recipe_manager)
+    # # fav_recipe_manager.delFavoriteRecipe(7777)
+    # print(fav_recipe_manager)
+    # fav_recipe_manager.delFavAll()
+    # print(fav_recipe_manager)
 
-    # rm = FavoriteRecipeManager(5555)
+    rm = FavoriteRecipeManager(5555)
     # rm.addFavoriteRecipe(123, 'test', 'pic')
     # test = rm.dispFavorites()
     # print(test[0].favName)
     # print(test[0].favId)
     # print(test[0].favPic)
     # rm.delFavUser()
+    rm.delFavAll()
