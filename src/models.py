@@ -15,4 +15,6 @@ class FavoriteRecipes(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
     userID = DB.Column(DB.Integer, nullable=False)
     recipeID = DB.Column(DB.Integer, nullable=False)
+    recipeTitle = DB.Column(DB.String(300), nullable=False)
+    recipeImage = DB.Column(DB.String(300), nullable=False)
 

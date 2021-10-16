@@ -6,6 +6,7 @@ from favoriteRecipes import FavoriteRecipeManager
 from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
     AUTH0_CLIENT_ID
+import ast
 
 # /route will show our index template
 @app.route("/")
@@ -49,6 +50,11 @@ def recipeDetail(recipe_id):
     similarRecipeID = getSimilarRecipeID(recipe_id)
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID)
 
+@app.route("/profile")
+def profile():
+    pantry()
+    return render_template("profile.html")
+
 @app.route("/pantry")
 def pantry():
     # set user and create Pantry Manager
@@ -77,7 +83,7 @@ def pantryAdd():
         pm.addPantry(ingredients)
 
     ingredients = request.args.get('ingredients')
-    return redirect(url_for('pantry'))
+    return redirect(url_for('profile'))
 
 @app.route("/pantry/del/<id>", methods=['POST'])
 def pantryDel(id):
@@ -87,7 +93,7 @@ def pantryDel(id):
         user = session['profile']['user_id']
     pm = PantryManager(user)
     pm.delPantryItem(id)
-    return redirect(url_for('pantry'))
+    return redirect(url_for('profile'))
 
 
 @app.route("/pantry/del_all/", methods=['POST'])
@@ -141,31 +147,40 @@ def getFavoriteRecipes():
     db = FavoriteRecipeManager(userID)
     favRecipes = db.getFavoriteRecipes()
     favRecipesList = favRecipes.split(", ")
-    results = []
+    favRecipesListFinal = []
     # check for empty favorites list
-    if (favRecipesList[0] != ''):
-        for recipe in favRecipesList:
-            print(recipe)
-            results.append(getRecipeDetail(recipe))
+    for recipe in favRecipesList:
+        recipeSplit = recipe.split(" ")
+        title = recipeSplit[1:len(recipeSplit) - 1]
+        title = " ".join(map(str, title))
+        recipeDict = {"id": recipeSplit[0], "title": title,
+                  "image": recipeSplit[-1]}
+        favRecipesListFinal.append(recipeDict)
+
+
+    if favRecipesListFinal[0]['id'] != '':
+        return render_template('favorite_recipes.html', recipes=favRecipesListFinal)
     else:
-        results = []
-    return render_template('favorite_recipes.html', recipes=results)
+        favRecipesListFinal = [] # otherwise this would be a dict with values
+        return render_template('favorite_recipes.html', recipes=favRecipesListFinal)
 
+@app.route('/favoriteThisRecipe', methods = ['POST'])
+def favoriteThisRecipe():
 
-@app.route('/recipe_detail/<recipe_id>')
-def favoriteThisRecipe(recipe_id):
-
+    print("ran")
     userID = "TestUser"  # for testing purposes
     if session != {}:
         userID = session['profile']['user_id']
     # Take the given id and add it to the database
     db = FavoriteRecipeManager(userID)
-    db.addFavoriteRecipe(recipe_id)
+    db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
 
-    # get the recipe again
-    data = getRecipeDetail(recipe_id)
-    similarRecipeID = getSimilarRecipeID(recipe_id)
+    # temps for imported values
+    data = ast.literal_eval(request.form["recipe"])
+    similarRecipeID = request.form['similarRec']
+
     # now update the page to inform the user that they added the recipe to the database
+    print("route ok")
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, message=True)
 
 @app.route('/remove_recipe/<recipe_id>')
@@ -179,5 +194,4 @@ def removeFromFavorites(recipe_id):
     db.delFavoriteRecipe(recipe_id)
 
     return getFavoriteRecipes()
-
 
