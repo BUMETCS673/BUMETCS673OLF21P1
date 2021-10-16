@@ -108,6 +108,30 @@ class TestPantry(unittest.TestCase):
         pm = PantryManager('UniTestUser2')
         pm.delPantryUser()
 
+    def testNoMultiEntry(self):
+        # ensure that double entries ware not allowed
+        # the getPantry() function returns each database entry for that user
+        # if the same item is entered 2 times, the DB should only contain one item
+
+        # create test user
+        pm = PantryManager('UniTestUser1')
+        # empty DB for that user (just in case)
+        pm.delPantryUser()
+
+        # add item 2 times
+        pm.addPantry('pepper')
+        pm.addPantry('pepper')
+
+        # check only one item is returned
+        ingList = pm.getPantry().split(',')
+        self.assertTrue(len(ingList) == 1)
+
+        # clear pantries
+        pm = PantryManager('UniTestUser1')
+        pm.delPantryUser()
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

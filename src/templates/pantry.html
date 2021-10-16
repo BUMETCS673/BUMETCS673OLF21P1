@@ -7,7 +7,7 @@
         <p style="font-size:12px;margin-top:5px;">(Separate ingredients with commas)</p>
 
         
-        <form action="/pantry">
+        <form action="{{ url_for('pantryAdd') }}" method = post>
             <div class="search-box">
                 <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
                 <button type="submit"><i class="fa fa-search"></i>Add</button>

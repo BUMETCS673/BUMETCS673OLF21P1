@@ -57,14 +57,27 @@ def pantry():
         user = session['profile']['user_id']
     pm = PantryManager(user)
 
-    # handle if ingredients are added
-    ingredients = request.args.get('ingredients')
-    if ingredients != None:
-        pm.addPantry(ingredients)
-
     # pantry ingredients to show
     pantryItems = pm.dispPantry()
     return render_template("pantry.html", items=pantryItems)
+
+
+@app.route("/pantry/add", methods=['POST'])
+def pantryAdd():
+
+    # set user and create Pantry Manager
+    user = "TestUser"  # for testing purposes
+    if session != {}:
+        user = session['profile']['user_id']
+    pm = PantryManager(user)
+
+    # handle added ingredients
+    ingredients = request.form['ingredients']
+    if ingredients != None:
+        pm.addPantry(ingredients)
+
+    ingredients = request.args.get('ingredients')
+    return redirect(url_for('pantry'))
 
 @app.route("/pantry/del/<id>", methods=['POST'])
 def pantryDel(id):
