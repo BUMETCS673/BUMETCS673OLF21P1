@@ -7,31 +7,35 @@
                 <h1 id="recipeTitle">{{recipe.title}}</h1>
             </div>
         </div>
-    <div>
-         {% if similarRecipeID != "None" %}
-            <div class="mt-1 col-6">
+        <div class="col-6 d-inline-flex flex-row-reverse">
+            {% if similarRecipeID != "None" %}
+            <span class="me-4 mt-2">
                 <form action="/recipe/{{similarRecipeID}}">
-                        <param name="recipe_id" value={{similarRecipeID}}>
-                        <button type="submit" class="btn">Find Similar Recipe</button>
-               </form>
-           </div>
-        {% endif %}
+                    <param name="recipe_id" value={{similarRecipeID}}>
+                    <button type="submit" class="btn">Find Similar</button>
+                </form>
+                {% endif %}
+            </span>
+            <span class="me-2 mt-3">
+                {% if session != {} %}
+                <form action="{{ url_for('favoriteThisRecipe') }}" method=post>
+                    {% if message == True %}
+                    <span class="me-1">Saved to favorites! </span>
+                    <button type="submit" class="btn"><i class="bi bi-heart-fill"></i> </button>
+                    {% else %}
+                    <input type='hidden' name='favId' value="{{recipe.id}}">
+                    <input type='hidden' name='favName' value="{{recipe.title}}">
+                    <input type='hidden' name='favPic' value="{{recipe.image}}">
+                    <input type='hidden' name='recipe' value="{{recipe}}">
+                    <input type='hidden' name='similarRec' value="{{similarRecipeID}}">
+                    <button type="submit" class="btn"><i class="bi bi-heart"></i> </button>
+                    {% endif %}
+                </form>
 
-    </div>
-    {% if session != {} %}
-        <form action= "{{ url_for('favoriteThisRecipe') }}" method = post>
-            <input type='hidden'  name='favId' value= "{{recipe.id}}">
-            <input type='hidden' name='favName' value= "{{recipe.title}}">
-            <input type='hidden' name='favPic' value= "{{recipe.image}}">
-            <input type='hidden' name='recipe' value= "{{recipe}}">
-            <input type='hidden' name='similarRec' value= "{{similarRecipeID}}">
-            <button type="submit" class="btn">Add to Favorites</button>
-        </form>
-        {%  if message == True %}
-            This recipe has been saved to your favorites
-        {%  endif %}
-    {%  endif %}
-    </div>
+                {% endif %}
+            </span>
+        </div>
+
 
     <div class="row">
         <div class="col-6">
@@ -41,17 +45,22 @@
                     <p class="card-text">{{recipe.summary|striptags}}</p>
                 </div>
                 <ul class="list-group d-flex flex-row flex-wrap">
-                    <li class="list-group-item flex-fill">Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif %}
+                    <li class="list-group-item flex-fill">Vegetarian: {% if recipe.vegetarian %}✅{% else %}⛔{% endif
+                        %}
                     </li>
                     <li class="list-group-item flex-fill">Vegan: {% if recipe.vegan %}✅{% else %}⛔{% endif %}</li>
-                    <li class="list-group-item flex-fill">Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif %}
+                    <li class="list-group-item flex-fill">Dairy free: {% if recipe.dairyFree %}✅{% else %}⛔{% endif
+                        %}
                     </li>
-                    <li class="list-group-item flex-fill">Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{% endif
+                    <li class="list-group-item flex-fill">Very healthy: {% if recipe.veryHealthy %}✅{% else %}⛔{%
+                        endif
                         %}</li>
                     <li class="list-group-item flex-fill">Cheap: {% if recipe.cheap %}✅{% else %}⛔{% endif %}</li>
-                    <li class="list-group-item flex-fill">Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{% endif
+                    <li class="list-group-item flex-fill">Very popular: {% if recipe.veryPopular %}✅{% else %}⛔{%
+                        endif
                         %}</li>
-                    <li class="list-group-item flex-fill">Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{% endif
+                    <li class="list-group-item flex-fill">Sustainable: {% if recipe.sustainable %}✅{% else %}⛔{%
+                        endif
                         %}</li>
                 </ul>
                 <div class="card-body d-flex justify-content-between">
@@ -64,7 +73,8 @@
         <div class="col-6">
             <div class="card mb-3 mt-1 rounded">
                 <h2 class="card-header" type="button" data-bs-toggle="collapse" data-bs-target="#ingredients"
-                    aria-expanded="false" aria-controls="ingredients">Ingredients <i class="bi bi-arrow-down"></i></h2>
+                    aria-expanded="false" aria-controls="ingredients">Ingredients <i class="bi bi-arrow-down"></i>
+                </h2>
                 <div class="card-body collapse" id="ingredients">
                     <ul class="list-group d-flex flex-row flex-wrap">
 

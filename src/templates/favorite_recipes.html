@@ -1,48 +1,30 @@
-{% include "head.html" %}
+<div class="col-6">
+    <div class="card mb-3 mt-1 rounded">
+        <h1 class="card-header">Favorites <i class="bi bi-heart"></i>
+        </h1>
+        <div class="card-body">
+            {% if recipes|length == 0 %}
+            <h2>You have no saved favorites yet</h2>
+            {% else %}
+            <ul class="list-group d-flex flex-row flex-wrap">
 
-<h1>Welcome to your Favorites</h1>
-<br>
-{% if recipes|length == 0 %}
-    <h2>You have no saved favorites yet</h2>
-{% else %}
+                {% for recipe in recipes %}
 
-    {% for recipe in recipes %}
-    <div class="container rounded" id="resippy">
-
-        <div class="row" >
-            <div class="col-6" id="recipeTitle">
-                <div>
-                    <h1 id="recipeTitle">{{recipe.title}}</h1>
-                </div>
-            </div>
-        <div>
-            {% if similarRecipeID != "None" %}
-                <div class="mt-1 col-6">
-                    <form action="/recipe/{{recipe.id}}">
-                            <param name="recipe_id" value={{similarRecipeID}}>
-                            <button type="submit" class="btn">Find Similar Recipe</button>
-                </form>
-            </div>
+                <li class="list-group-item" style="float:left; width:12rem;">
+                    <a href="/recipe/{{result.id}}"><img src="{{recipe.image}}" alt="{{recipe.title}}"
+                            style="max-height: 5rem; object-fit: contain; float: left;" /></a> {{recipe.title}}
+                    <form action="/remove_recipe/{{recipe.id}}">
+                        <button type="submit" class="btn">Remove?</button>
+                        {% if message == True %}
+                        Removed from favorites!
+                        {% endif %}
+                    </form>
+                </li>
+                {% endfor%}
+            </ul>
             {% endif %}
         </div>
-            <form action="/remove_recipe/{{recipe.id}}">
-                    <button type="submit" class="btn">Remove from Favorites</button>
-            </form>
-            {%  if message == True %}
-                This recipe has been removed from your favorites
-            {%  endif %}
-        </div>
-
-        <div class="row">
-            <div class="col-6">
-                <div class="card mt-1 rounded">
-                    <img src="{{recipe.image}}" class="card-img-top" alt="{{recipe.title}}">
-                </div>
-            </div>
-        </div>
-
-    {% endfor %}
-
-{% endif %}
-
+    </div>
+</div>
+</div>
 {% include "foot.html" %}

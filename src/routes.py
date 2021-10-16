@@ -50,6 +50,11 @@ def recipeDetail(recipe_id):
     similarRecipeID = getSimilarRecipeID(recipe_id)
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID)
 
+@app.route("/profile")
+def profile():
+    pantry()
+    return render_template("profile.html")
+
 @app.route("/pantry")
 def pantry():
     # set user and create Pantry Manager
@@ -78,7 +83,7 @@ def pantryAdd():
         pm.addPantry(ingredients)
 
     ingredients = request.args.get('ingredients')
-    return redirect(url_for('pantry'))
+    return redirect(url_for('profile'))
 
 @app.route("/pantry/del/<id>", methods=['POST'])
 def pantryDel(id):
@@ -88,7 +93,7 @@ def pantryDel(id):
         user = session['profile']['user_id']
     pm = PantryManager(user)
     pm.delPantryItem(id)
-    return redirect(url_for('pantry'))
+    return redirect(url_for('profile'))
 
 
 @app.route("/pantry/del_all/", methods=['POST'])
