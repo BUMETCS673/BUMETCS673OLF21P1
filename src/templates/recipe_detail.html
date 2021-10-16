@@ -1,38 +1,10 @@
 {% include "head.html" %}
 <div class="container rounded" id="resippy">
-   <div class="row">
-      <div class="col-6" id="recipeTitle">
-         <div>
-            <h1 id="recipeTitle">{{recipe.title}}</h1>
-         </div>
-      </div>
-   </div>
-   <div class="row">
-      {% if similarRecipeID != "None" %}
-      <div class="mt-1 col-6">
-         <form action="/recipe/{{similarRecipeID}}">
-            <param name="recipe_id" value={{similarRecipeID}}>
-            <button type="submit" class="btn">Find Similar Recipe</button>
-         </form>
-      </div>
-      {% endif %}
-      {% if session != {} %}
-      <div class="mt-1 col-6">
-         <form action="/recipe_detail/{{recipe.id}}">
-            <button type="submit" class="btn">Favorite This recipe</button>
-         </form>
-         {%  if message == True %}
-         This recipe has been saved to your favorites
-         {%  endif %}
-      </div>
-      {%  endif %}
-   </div>
-   <div class="row">
-      <div class="col-6">
-         <div class="card mt-1 rounded">
-            <img src="{{recipe.image}}" class="card-img-top" alt="{{recipe.title}}">
-            <div class="card-body">
-               <p class="card-text">{{recipe.summary|striptags}}</p>
+
+    <div class="row">
+        <div class="col-6" id="recipeTitle">
+            <div>
+                <h1 id="recipeTitle">{{recipe.title}}</h1>
             </div>
         </div>
         <div class="col-6 d-inline-flex flex-row-reverse">
@@ -117,27 +89,28 @@
                     </ul>
                 </div>
             </div>
-         </div>
-         <div class="card rounded">
-            <h2 class="card-header">How to:</h2>
-            <div class="card-body">
-               {% if recipe.analyzedInstructions != [] %}
-               {% for step in recipe.analyzedInstructions[0].steps %}
-               <div class="card-header">
-                  Step #{{step.number}}
-               </div>
-               <ul class="list-group list-group-flush">
-                  <li class="list-group-item">{{step.step}}</li>
-               </ul>
-               {% endfor %}
-               {% else %}
-               <ul class="list-group list-group-flush">
-                  <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
-               </ul>
-               {% endif %}
+
+            <div class="card rounded">
+                <h2 class="card-header">How to:</h2>
+                <div class="card-body">
+                    {% if recipe.analyzedInstructions != [] %}
+                    {% for step in recipe.analyzedInstructions[0].steps %}
+                    <div class="card-header">
+                        Step #{{step.number}}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">{{step.step}}</li>
+                    </ul>
+                    {% endfor %}
+                    {% else %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">See <a href="{{recipe.sourceUrl}}">source link</a></li>
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
+        </div>
+    </div>
 </div>
+
 {% include "foot.html" %}
