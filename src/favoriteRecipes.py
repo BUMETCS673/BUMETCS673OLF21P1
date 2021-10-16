@@ -1,6 +1,19 @@
 from config import DB
 from models import FavoriteRecipes
 
+class favItem():
+    # a class to hold information about a fav item
+    def __init__(self, favName, favId, favPic):
+        self.favName = favName
+        self.favId = favId
+        self.favPic = favPic
+
+    def __lt__(self, other):
+        return self.favName < other.favName
+
+    def __repr__(self):
+        return self.favName
+
 
 class FavoriteRecipeManager():
     def __init__(self, userID):
@@ -11,11 +24,13 @@ class FavoriteRecipeManager():
 
     def addFavoriteRecipe(self, recipeID, recipe_title, recipe_image):
         """Takes the given recipe and adds the data to the database"""
-        DB.session.add(FavoriteRecipes(userID=self.userID,
-                                       recipeID=recipeID,
-                                       recipeTitle=recipe_title,
-                                       recipeImage=recipe_image))
-        DB.session.commit()
+        # check for entry already present if not, then add
+        if FavoriteRecipes.query.filter_by(userID=self.userID,recipeID=recipeID).first() is None:
+            DB.session.add(FavoriteRecipes(userID=self.userID,
+                                        recipeID=recipeID,
+                                        recipeTitle=recipe_title,
+                                        recipeImage=recipe_image))
+            DB.session.commit()
 
     def getFavoriteRecipes(self):
         """Gets and returns a list of favorite recipes by their ID"""
