@@ -12,9 +12,9 @@
             {% else %}
 
             {% for result in results %}
-            <div class="card rounded col-sm-6 mb-2">
+            <div class="card rounded col-sm-6 mb-3 pb-3 border-bottom">
                     <a href="/recipe/{{result.id}}"><img class="card-img-top" src="{{result.image}}"></a>
-                    <div class="card-body">
+                    <div class="card-body pb-1">
                         <h5 class="card-title">{{result.title}}</h5>
                     </div>
                     <div class="card-footer btn btn-secondary">
