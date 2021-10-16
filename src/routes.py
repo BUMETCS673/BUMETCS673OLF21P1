@@ -37,7 +37,7 @@ def showRecipes():
     print('ing: ' + ingredients)
 
     if ingredients == '':
-        results = []
+        results = ['blank']
         return render_template('recipe.html', results=results)
     results = searchRecipes(ingredients, diet, intolerances, allReq)
     # set second argument to pass the data

@@ -5,11 +5,19 @@
 
          {% if results == [] %}
 
-               <div class="text-center p-5 h5">
-                Oops... No recipes found using the ingredients you entered.<br><br>Please try other ingredients!
-               </div>
+            <div class="text-center p-5 h5">
+            Oops... No recipes found using the ingredients you entered.<br><br>Please try other ingredients!
+            </div>
 
-            {% else %}
+        {% elif results == ['blank'] %}
+            <div class="text-center p-5 h5">
+            Oops... You didn't enter any ingredients.<br><br>
+            {% if session != {} %}
+                Your pantry is empty too!
+            {% endif %}
+            </div>
+
+        {% else %}
 
             {% for result in results %}
             <div class="col-sm-6 mb-1">
