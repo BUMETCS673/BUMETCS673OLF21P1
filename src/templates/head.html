@@ -22,7 +22,8 @@
   <div class="clearfix">
     <nav class="navbar navbar-expand-lg nav-pills">
       <div class="container">
-        <a class="navbar-brand p-1 mt-0 me-1 btn" id="appName" href="/"><img src="../static/images/logo_whiteyellow.jpg" alt="" width="30" height="24" class="d-inline-block align-text-top">Cheffy</a>
+        <a class="navbar-brand p-1 mt-0 me-1 btn" id="appName" href="/"><img src="../static/images/logo_whiteyellow.jpg"
+            alt="" width="30" height="24" class="d-inline-block align-text-top">Cheffy</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -35,14 +36,15 @@
             <li class="nav-item p-1 mt-0 me-1">
               <a class="btn" href="/about">ABOUT</a>
             </li>
-            {% if session != {} %}
-              <li class="nav-item p-1 mt-0 me-1">
-                <a class="btn" href="/favorite_recipes">Your Favorite Recipes</a>
-              </li>
-              <li class="nav-item p-1 mt-0 me-1">
-                <a class="btn" href="/pantry">PANTRY</a>
-              </li>
-            {% endif %}
+            <!-- {% if session != {} %}
+            <li class="nav-item p-1 mt-0 me-1">
+              <a class="btn" href="/favorite_recipes">Your Favorite Recipes</a>
+            </li>
+            <li class="nav-item p-1 mt-0 me-1">
+              <a class="btn" href="/pantry">PANTRY</a>
+            </li>
+            {% endif %} -->
+            
 
 
 
@@ -56,11 +58,12 @@
             YOUR CHEFFY
           </a>
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+
             {% if session == {} %}
-              <li><a class="dropdown-item" href="/login">Login/Sign-Up</a></li>
+            <li><a class="dropdown-item" href="/login">Login/Sign-Up</a></li>
             {% else %}
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
             {% endif %}
           </ul>
         </li>
