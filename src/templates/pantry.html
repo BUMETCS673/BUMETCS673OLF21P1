@@ -1,39 +1,70 @@
 {% include "head.html" %}
 
-<main>
-    <section class="pantry-search-container">
-        <h1>Welcome to your Pantry</h1>
-        <p style="margin-bottom:1px;">Enter ingredients you have on hand!</p>
-        <p style="font-size:12px;margin-top:5px;">(Separate ingredients with commas)</p>
+<div class="row">
+    <div class="col-6">
+        <!-- <section class="pantry-search-container">
+            <h1>Welcome to your Pantry</h1>
+            <p style="margin-bottom:1px;">Enter ingredients you have on hand!</p>
+            <p style="font-size:12px;margin-top:5px;">(Separate ingredients with commas)</p> -->
 
-        
-        <form action="{{ url_for('pantryAdd') }}" method = post>
-            <div class="search-box">
-                <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
-                <button type="submit"><i class="fa fa-search"></i>Add</button>
+        <form action="{{ url_for('pantryAdd') }}" method=post class="searchBox p-2 rounded">
+            <h1>Your Pantry</h1>
+            <div class="mb-3">
+                <label for="search" class="form-label">Enter ingredients you have on hand!</label>
+                <input type="text" class="form-control" id="search" placeholder="e.g. broccoli,mushroom"
+                    name="ingredients">
+                <div id="searchHelp" class="form-text">(Separate ingredients by comma, no spaces)</div>
             </div>
+            <button type="submit" class="btn"><i class="bi bi-plus"></i> Add</button>
         </form>
 
-        <div class="pantry-container" style="margin-bottom:80px">
+
+        <!-- <form action="{{ url_for('pantryAdd') }}" method=post>
+                <div class="search-box">
+                    <input type="text" placeholder="e.g. broccoli,mushroom" name="ingredients">
+                    <button type="submit"><i class="fa fa-search"></i>Add</button>
+                </div>
+            </form> -->
+
+        <!-- <div class="pantry-container" style="margin-bottom:80px">
             <br>
             <h1>Contents of your Pantry</h1>
 
-            <form action="{{ url_for('pantryDelAll') }}" method= post>
+            <form action="{{ url_for('pantryDelAll') }}" method=post>
                 <input class="btn" type="submit" value="Empty Pantry">
             </form>
 
             {% for ing in items %}
-                <h2><img class="image" src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}">&emsp;{{ing.ingName}}</h2>
+            <h2><img class="image"
+                    src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}">&emsp;{{ing.ingName}}
+            </h2>
 
-                <form action="{{ url_for('pantryDel', id = ing.ingId) }}" method= post>
-                    <input class="btn" type="submit" value="Delete">
-                </form>
+            <form action="{{ url_for('pantryDel', id = ing.ingId) }}" method=post>
+                <input class="btn" type="submit" value="Delete">
+            </form>
 
 
             {% endfor %}
-        
-        </div>
-    </section>
-</main>
 
-{% include "foot.html" %}
+        </div> -->
+        <div class="card mb-3 mt-1 rounded">
+            <h2 class="card-header">Pantry Contents <i class="bi bi-arrow-down"></i>
+            </h2>
+            <div class="card-body">
+                <ul class="list-group d-flex flex-row flex-wrap">
+
+                    {% for ing in items %}
+
+                    <li class="list-group-item" style="float:left; width:12rem;">
+                        <img src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}"
+                            alt="{{ing.ingName}}"
+                            style="max-height: 5rem; object-fit: contain; float: left;" />&emsp;{{ing.ingName}}
+                        <form action="{{ url_for('pantryDel', id = ing.ingId) }}" method=post>
+                            <input class="btn" type="submit" value="Delete">
+                        </form>
+                    </li>
+                    {% endfor%}
+                </ul>
+            </div>
+        </div>
+    </div>
