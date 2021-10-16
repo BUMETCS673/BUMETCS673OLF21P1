@@ -72,15 +72,17 @@ def pantryAdd():
     user = "TestUser"  # for testing purposes
     if session != {}:
         user = session['profile']['user_id']
-    pm = PantryManager(user)
+        pm = PantryManager(user)
 
-    # handle added ingredients
-    ingredients = request.form['ingredients']
-    if ingredients != None:
-        pm.addPantry(ingredients)
+        # handle added ingredients
+        ingredients = request.form['ingredients']
+        if ingredients != None:
+            pm.addPantry(ingredients)
 
-    ingredients = request.args.get('ingredients')
-    return redirect(url_for('profile'))
+        ingredients = request.args.get('ingredients')
+        return redirect(url_for('profile'))
+    else:
+        return redirect(url_for('index'))
 
 @app.route("/pantry/del", methods=['POST'])
 def pantryDel():
@@ -109,9 +111,9 @@ def favoriteThisRecipe():
     userID = "TestUser"  # for testing purposes
     if session != {}:
         userID = session['profile']['user_id']
-    # Take the given id and add it to the database
-    db = FavoriteRecipeManager(userID)
-    db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
+        # Take the given id and add it to the database
+        db = FavoriteRecipeManager(userID)
+        db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
 
     # temps for imported values
     data = ast.literal_eval(request.form["recipe"])
