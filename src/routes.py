@@ -6,6 +6,7 @@ from favoriteRecipes import FavoriteRecipeManager
 from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
     AUTH0_CLIENT_ID
+import ast
 
 # /route will show our index template
 @app.route("/")
@@ -144,8 +145,25 @@ def getFavoriteRecipes():
         return favRecipesListFinal
 
 
-@app.route('/add_to_favorites/<int:recipe_id>/<recipe_title>/<path:recipe_image>', methods=['GET'])
-def favoriteThisRecipe(recipe_id=None, recipe_title=None, recipe_image=None):
+# @app.route('/add_to_favorites/<int:recipe_id>/<recipe_title>/<path:recipe_image>', methods=['GET'])
+# def favoriteThisRecipe(recipe_id=None, recipe_title=None, recipe_image=None):
+
+#     print("ran")
+#     userID = "TestUser"  # for testing purposes
+#     if session != {}:
+#         userID = session['profile']['user_id']
+#     # Take the given id and add it to the database
+#     db = FavoriteRecipeManager(userID)
+#     db.addFavoriteRecipe(recipe_id, recipe_title, recipe_image)
+
+#     # get the recipe again
+#     data = getRecipeDetail(recipe_id)
+#     similarRecipeID = getSimilarRecipeID(recipe_id)
+#     # now update the page to inform the user that they added the recipe to the database
+#     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, message=True)
+
+@app.route('/favoriteThisRecipe', methods = ['POST'])
+def favoriteThisRecipe():
 
     print("ran")
     userID = "TestUser"  # for testing purposes
@@ -153,12 +171,14 @@ def favoriteThisRecipe(recipe_id=None, recipe_title=None, recipe_image=None):
         userID = session['profile']['user_id']
     # Take the given id and add it to the database
     db = FavoriteRecipeManager(userID)
-    db.addFavoriteRecipe(recipe_id, recipe_title, recipe_image)
+    db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
 
-    # get the recipe again
-    data = getRecipeDetail(recipe_id)
-    similarRecipeID = getSimilarRecipeID(recipe_id)
+    # temps for imported values
+    data = ast.literal_eval(request.form["recipe"])
+    similarRecipeID = request.form['similarRec']
+
     # now update the page to inform the user that they added the recipe to the database
+    print("route ok")
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, message=True)
 
 @app.route('/remove_recipe/<recipe_id>')

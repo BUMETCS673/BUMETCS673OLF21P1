@@ -16,7 +16,7 @@
                </form>
            </div>
         {% endif %}
-    </div>
+    <!-- </div>
         {% if session != {} %}
             <form action={{ url_for("favoriteThisRecipe", recipe_id=recipe.id, recipe_title=recipe.title, recipe_image=recipe.image) }}>
                     <button type="submit" class="btn">Favorite This recipe</button>
@@ -25,6 +25,21 @@
                 This recipe has been saved to your favorites
             {%  endif %}
         {%  endif %}
+    </div> -->
+    </div>
+    {% if session != {} %}
+        <form action= "{{ url_for('favoriteThisRecipe') }}" method = post>
+            <input type='hidden'  name='favId' value= "{{recipe.id}}">
+            <input type='hidden' name='favName' value= "{{recipe.title}}">
+            <input type='hidden' name='favPic' value= "{{recipe.image}}">
+            <input type='hidden' name='recipe' value= "{{recipe}}">
+            <input type='hidden' name='similarRec' value= "{{similarRecipeID}}">
+            <button type="submit" class="btn">Add to Favorites</button>
+        </form>
+        {%  if message == True %}
+            This recipe has been saved to your favorites
+        {%  endif %}
+    {%  endif %}
     </div>
 
     <div class="row">
