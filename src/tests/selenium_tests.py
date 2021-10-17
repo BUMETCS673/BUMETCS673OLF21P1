@@ -57,19 +57,11 @@ class SiteTest(unittest.TestCase):
 
         time.sleep(10)  # take a pause 10 seconds
 
-        self.driver.save_screenshot('1.png')
-
-        tab = self.driver.find_element_by_class_name("auth0-lock-tabs-current")
-        tab.click()
-        print(tab)
-
         username_input = self.driver.find_element_by_name("username")
         username_input.send_keys("gracetest123")
 
         password_input = self.driver.find_element_by_name("password")
         password_input.send_keys("Testpassword123")
-
-        self.driver.save_screenshot('2.png')
 
         submit_button = self.driver.find_element_by_class_name("auth0-label-submit")
         submit_button.click()
