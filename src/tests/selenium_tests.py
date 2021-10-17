@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 
 class SiteTest(unittest.TestCase):
@@ -43,6 +44,43 @@ class SiteTest(unittest.TestCase):
         # make sure we are on recipe detail page with recipe image.
         img_element = self.driver.find_element_by_class_name("card-img-top")
         self.assertIn('spoonacular.com/recipeImages', img_element.get_attribute('src'))
+
+    def test_login(self):
+        # Test search recipe
+        self.driver.get('http://web:5000/')
+
+        navbar_link = self.driver.find_element_by_id("navbarDropdownMenuLink")
+        navbar_link.click()
+
+        sign_up_link = self.driver.find_element_by_id("sign-up")
+        sign_up_link.click()
+
+        time.sleep(10)  # take a pause 10 seconds
+
+        self.driver.save_screenshot('1.png')
+
+        tab = self.driver.find_element_by_class_name("auth0-lock-tabs-current")
+        tab.click()
+        print(tab)
+
+        username_input = self.driver.find_element_by_name("username")
+        username_input.send_keys("gracetest123")
+
+        password_input = self.driver.find_element_by_name("password")
+        password_input.send_keys("Testpassword123")
+
+        self.driver.save_screenshot('2.png')
+
+        submit_button = self.driver.find_element_by_class_name("auth0-label-submit")
+        submit_button.click()
+
+        # wait for URL to change with 5 seconds.
+        WebDriverWait(self.driver, 5)
+
+        time.sleep(10)  # take a pause 10 seconds
+
+        print(self.driver.page_source)
+        self.driver.save_screenshot('3.png')
 
 
 if __name__ == '__main__':
