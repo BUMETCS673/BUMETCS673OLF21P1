@@ -43,10 +43,6 @@ def get_token_auth_header():
     Obtains the Access Token from the Authorization Header
     """
     auth = request.headers.get("Authorization", None)
-    if not auth:
-        raise AuthError({"code": "authorization_header_missing",
-                        "description":
-                            "Authorization header is expected"}, 401)
 
     parts = auth.split()
 
@@ -90,6 +86,10 @@ def requires_auth(f):
     """
     @wraps(f)
     def decorated(*args, **kwargs):
+        auth = request.headers.get("Authorization", None)
+        if auth is None:
+            return auth0.authorize_redirect(redirect_uri=AUTH0_CALLBACK_URL,
+                                     audience=AUTH0_AUDIENCE)
         token = get_token_auth_header()
         jsonurl = urlopen("https://"+AUTH0_DOMAIN+"/.well-known/jwks.json")
         jwks = json.loads(jsonurl.read())
