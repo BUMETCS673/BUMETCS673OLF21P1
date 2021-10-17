@@ -203,7 +203,6 @@ def login():
                                     audience=AUTH0_AUDIENCE)
 
 @app.route('/logout')
-@requires_auth
 def logout():
     session.clear()
     params = {'returnTo': url_for('index', _external=True),
