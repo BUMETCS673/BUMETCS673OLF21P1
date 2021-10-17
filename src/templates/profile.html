@@ -63,8 +63,10 @@
 
                     <li class="list-group-item" style="float:left; width:12rem;">
                         <img src="{{'https://spoonacular.com/cdn/ingredients_100x100/' + ing.ingPic}}"
-                            alt="{{ing.ingName}}"
-                            style="max-height: 5rem; object-fit: contain; float: left;" />&emsp;{{ing.ingName}}
+                            alt="{{ing.ingName}}"/>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ing.ingName}}</h5>
+                            </div>
                         <form action="{{ url_for('pantryDel')}}" method=post>
                             <input type='hidden' name='ingId' value="{{ing.ingId}}">
                             <input class="btn" type="submit" value="Remove">
@@ -96,10 +98,11 @@
                     {% for recipe in recipes %}
     
                     <li class="list-group-item" style="float:left; width:12rem;">
-                        <a href="/recipe/{{recipe.favId}}"><img src="{{recipe.favPic}}" alt="{{recipe.favName}}"
-                                style="max-height: 5rem; object-fit: contain; float: left;" /></a> {{recipe.favName}}
-
-                            <form action="{{ url_for('removeFromFavorites')}}" method=post>
+                        <a href="/recipe/{{recipe.favId}}"><img class="card-img-top" src="{{recipe.favPic}}"></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{recipe.favName}}</h5>
+                        </div>
+                        <form action="{{ url_for('removeFromFavorites')}}" method=post>
                             <input type='hidden' name='favId' value="{{recipe.favId}}">
                             <button type="submit" class="btn">Remove</button>
 
