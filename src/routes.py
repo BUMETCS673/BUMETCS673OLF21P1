@@ -5,7 +5,7 @@ from pantry import PantryManager
 from favoriteRecipes import FavoriteRecipeManager
 from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
-    AUTH0_CLIENT_ID, requires_auth
+    AUTH0_CLIENT_ID
 import ast
 
 # /route will show our index template
@@ -58,7 +58,6 @@ def recipeDetail(recipe_id):
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, favs = recId)
 
 @app.route("/profile")
-@requires_auth
 def profile():
     # pantry()
     # set user and create Pantry Manager
@@ -74,7 +73,6 @@ def profile():
     return render_template("profile.html", items = pantryItems, recipes = favItems)
 
 @app.route("/pantry/add", methods=['POST'])
-@requires_auth
 def pantryAdd():
 
     # set user and create Pantry Manager
@@ -94,7 +92,6 @@ def pantryAdd():
         return redirect(url_for('index'))
 
 @app.route("/pantry/del", methods=['POST'])
-@requires_auth
 def pantryDel():
     # set user and create Pantry Manager
     user = "TestUser"  # for testing purposes
@@ -107,7 +104,6 @@ def pantryDel():
 
 
 @app.route("/pantry/del_all/", methods=['POST'])
-@requires_auth
 def pantryDelAll():
     # set user and create Pantry Manager
     user = "TestUser"  # for testing purposes
@@ -118,7 +114,6 @@ def pantryDelAll():
     return redirect(url_for('profile'))
 
 @app.route('/favoriteThisRecipe', methods = ['POST'])
-@requires_auth
 def favoriteThisRecipe():
     userID = "TestUser"  # for testing purposes
     if session != {}:
@@ -137,7 +132,6 @@ def favoriteThisRecipe():
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message="Add")
 
 @app.route('/remove_recipe', methods = ['POST'])
-@requires_auth
 def removeFromFavorites():
     userID = "TestUser"  # for testing purposes
     if session != {}:
@@ -149,7 +143,6 @@ def removeFromFavorites():
     return redirect(url_for('profile'))
 
 @app.route('/profile_favRemoveAll', methods = ['POST'])
-@requires_auth
 def removeAllFavs():
     userID = "TestUser"  # for testing purposes
     if session != {}:
@@ -160,7 +153,6 @@ def removeAllFavs():
     return redirect(url_for('profile'))
 
 @app.route("/detailDelFav", methods = ['POST'])
-@requires_auth
 def detailDelFav():
 
     userID = "TestUser"  # for testing purposes
@@ -203,7 +195,6 @@ def login():
                                     audience=AUTH0_AUDIENCE)
 
 @app.route('/logout')
-@requires_auth
 def logout():
     session.clear()
     params = {'returnTo': url_for('index', _external=True),
