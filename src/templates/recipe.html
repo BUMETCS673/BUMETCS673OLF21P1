@@ -1,7 +1,7 @@
 {% include "index.html" %}
 
-<div class="col-6">
-    <div class="row searchResult">
+<div class="col-md-6 col-sm-12">
+    <div class="row searchResult pt-2">
 
          {% if results == [] %}
 
@@ -18,13 +18,13 @@
 
             {% for result in results %}
             <div class="col-sm-6 mb-1">
-                <div class="card m-1 h-100 rounded" style="width: 18rem; height:22rem">
+                <div class="card rounded h-100" style="height:22rem">
                     <a href="/recipe/{{result.id}}"><img class="card-img-top" src="{{result.image}}"></a>
                     <div class="card-body">
                         <h5 class="card-title">{{result.title}}</h5>
                     </div>
-                    <div class="card-footer">
-                        <a href="/recipe/{{result.id}}" class="card-link"> See recipe... </a>
+                    <div class="card-footer btn btn-secondary">
+                        <a href="/recipe/{{result.id}}" class="card-link" style="color:black; text-decoration: none;"> See recipe... </a>
                     </div>
                 </div>
             </div>
