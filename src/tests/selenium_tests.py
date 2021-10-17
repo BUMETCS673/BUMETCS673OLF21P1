@@ -54,9 +54,9 @@ class SiteTest(unittest.TestCase):
 
         sign_up_link = self.driver.find_element_by_id("sign-up")
         sign_up_link.click()
+        time.sleep(5)
 
-        time.sleep(10)  # take a pause 10 seconds
-
+        # We are now on the Auth0 hosted login page.
         username_input = self.driver.find_element_by_name("username")
         username_input.send_keys("gracetest123")
 
@@ -65,14 +65,17 @@ class SiteTest(unittest.TestCase):
 
         submit_button = self.driver.find_element_by_class_name("auth0-label-submit")
         submit_button.click()
+        time.sleep(5)
 
-        # wait for URL to change with 5 seconds.
-        WebDriverWait(self.driver, 5)
+        # A small hack to manually redirect back to web:5000 instead of 127.0.0.1:5000
+        # due to limitation in this docker setup.
+        self.driver.get(self.driver.current_url.replace('127.0.0.1', 'web'))
+        time.sleep(5)
 
-        time.sleep(10)  # take a pause 10 seconds
-
-        print(self.driver.page_source)
-        self.driver.save_screenshot('3.png')
+        dropdowns = self.driver.find_elements_by_class_name("dropdown-item")
+        self.assertEqual(len(dropdowns), 2)
+        self.assertEqual(dropdowns[0].get_attribute('innerHTML'), 'Profile')
+        self.assertEqual(dropdowns[1].get_attribute('innerHTML'), 'Logout')
 
 
 if __name__ == '__main__':
