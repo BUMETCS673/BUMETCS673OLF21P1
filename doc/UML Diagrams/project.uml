@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>AlchemyModelDependency</ID>
+  <OriginalElement>#BUMETCS673OLF21P1</OriginalElement>
+  <nodes>
+    <node x="0.0" y="189.0">src.models.Pantry</node>
+    <node x="0.0" y="0.0">src.models.FavoriteRecipes</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="106.5" y="166.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+
