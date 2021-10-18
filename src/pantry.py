@@ -78,6 +78,9 @@ class PantryManager():
         ingredientList.sort()
         return ingredientList
 
+    def countPantry(self):
+        return len(Pantry.query.filter_by(userId=self.currUser).all())
+
     def delPantryItem(self, id):
         ''' delete item with target id value '''
         if Pantry.query.filter_by(userId=self.currUser,

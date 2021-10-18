@@ -1,6 +1,6 @@
 from urllib.parse import urlencode
 from flask import render_template, request, redirect, url_for, session
-from config import app
+from config import app, pLimit
 from pantry import PantryManager
 from favoriteRecipes import FavoriteRecipeManager
 from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
@@ -70,7 +70,16 @@ def profile():
     pantryItems = pm.dispPantry()
     favItems = fm.dispFavorites()
 
-    return render_template("profile.html", items = pantryItems, recipes = favItems)
+    print(pm.countPantry())
+    print(pm.countPantry() >= pLimit)
+    
+    addOk = True
+    if pm.countPantry() >= pLimit:
+        addOk = False
+
+    print(addOk)
+
+    return render_template("profile.html", items = pantryItems, recipes = favItems, addOk = addOk)
 
 @app.route("/pantry/add", methods=['POST'])
 def pantryAdd():
