@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#G:/Documents/CS673/BUMETCS673OLF21P1/src/models.py</OriginalElement>
+  <nodes>
+    <node x="233.0" y="81.0">src.models.Pantry</node>
+    <node x="0.0" y="81.0">src.models.FavoriteRecipes</node>
+    <node x="167.75" y="0.0">Model</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.models.FavoriteRecipes" target="Model" relationship="REALIZATION">
+      <point x="0.0" y="-72.0" />
+      <point x="106.5" y="56.0" />
+      <point x="207.25" y="56.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="src.models.Pantry" target="Model" relationship="REALIZATION">
+      <point x="0.0" y="-72.0" />
+      <point x="308.0" y="56.0" />
+      <point x="207.25" y="56.0" />
+      <point x="0.0" y="15.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="191.5" y="112.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+

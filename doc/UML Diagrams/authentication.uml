@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#G:/Documents/CS673/BUMETCS673OLF21P1/src/authentication.py</OriginalElement>
+  <nodes>
+    <node x="0.0" y="697.0">BaseException</node>
+    <node x="91.5" y="0.0">typing.Hashable</node>
+    <node x="54.0" y="1061.0">src.authentication.AuthError</node>
+    <node x="112.5" y="980.0">Exception</node>
+    <node x="47.5" y="106.0">object</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.authentication.AuthError" target="Exception" relationship="REALIZATION">
+      <point x="0.0" y="-50.5" />
+      <point x="0.0" y="15.5" />
+    </edge>
+    <edge source="object" target="typing.Hashable" relationship="INTERFACE">
+      <point x="0.0" y="-270.5" />
+      <point x="163.0" y="81.0" />
+      <point x="163.0" y="81.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="Exception" target="BaseException" relationship="REALIZATION">
+      <point x="0.0" y="-15.5" />
+      <point x="0.0" y="116.5" />
+    </edge>
+    <edge source="BaseException" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-116.5" />
+      <point x="163.0" y="672.0" />
+      <point x="163.0" y="672.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.7817258883248731" showDependencies="false" x="163.0" y="581.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+
