@@ -70,14 +70,11 @@ def profile():
     pantryItems = pm.dispPantry()
     favItems = fm.dispFavorites()
 
-    print(pm.countPantry())
-    print(pm.countPantry() >= pLimit)
     
     addOk = True
     if pm.countPantry() >= pLimit:
         addOk = False
 
-    print(addOk)
 
     return render_template("profile.html", items = pantryItems, recipes = favItems, addOk = addOk)
 
