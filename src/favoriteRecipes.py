@@ -1,4 +1,4 @@
-from config import DB
+from config import DB, fLimit
 from models import FavoriteRecipes
 
 class favItem():
@@ -25,12 +25,16 @@ class FavoriteRecipeManager():
     def addFavoriteRecipe(self, recipeID, recipe_title, recipe_image):
         """Takes the given recipe and adds the data to the database"""
         # check for entry already present if not, then add
-        if FavoriteRecipes.query.filter_by(userID=self.userID,recipeID=recipeID).first() is None:
-            DB.session.add(FavoriteRecipes(userID=self.userID,
-                                        recipeID=recipeID,
-                                        recipeTitle=recipe_title,
-                                        recipeImage=recipe_image))
-            DB.session.commit()
+        if len(FavoriteRecipes.query.filter_by(userID=self.userID).all()) < fLimit:
+            if FavoriteRecipes.query.filter_by(userID=self.userID,recipeID=recipeID).first() is None:
+                DB.session.add(FavoriteRecipes(userID=self.userID,
+                                            recipeID=recipeID,
+                                            recipeTitle=recipe_title,
+                                            recipeImage=recipe_image))
+                DB.session.commit()
+                return True
+        else:
+            return False
 
     def getFavoriteRecipes(self):
         """Gets and returns a list of favorite recipes by their ID"""
