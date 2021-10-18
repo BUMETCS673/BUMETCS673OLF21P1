@@ -55,6 +55,8 @@ class PantryManager():
                 else:
                     # item is not verified in spoontacular API search
                     print(ing + ' not found')
+            else:
+                print("over allowed pantry size")
 
     def getPantry(self):
         ''' returns a string of pantry ingredient names for current user '''
