@@ -120,7 +120,11 @@ def favoriteThisRecipe():
         userID = session['profile']['user_id']
         # Take the given id and add it to the database
         db = FavoriteRecipeManager(userID)
-        db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
+        added = db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
+
+    message = "Add"
+    if added == False:
+        message = "Full"
 
     # temps for imported values
     data = ast.literal_eval(request.form["recipe"])
@@ -129,7 +133,7 @@ def favoriteThisRecipe():
 
     # now update the page to inform the user that they added the recipe to the database
     print("route ok")
-    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message="Add")
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message = message)
 
 @app.route('/remove_recipe', methods = ['POST'])
 def removeFromFavorites():
