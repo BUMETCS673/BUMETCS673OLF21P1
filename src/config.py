@@ -29,5 +29,5 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 DB = SQLAlchemy(app)
 
 # pantry and favorite limits
-pLimit = 100 # pantry limit
-fLimit = 100 # fav limit
+pLimit = 3 # pantry limit
+fLimit = 3 # fav limit

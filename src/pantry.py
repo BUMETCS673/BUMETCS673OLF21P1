@@ -1,4 +1,4 @@
-from config import DB
+from config import DB, pLimit
 from models import Pantry
 from spoon import searchSpoon
 
@@ -22,6 +22,9 @@ class PantryManager():
     def __init__(self, user):
         self.currUser = user
 
+    def countPantry(self):
+        return len(Pantry.query.filter_by(userId=self.currUser).all())
+
     def addPantry(self, ingredient):
         # adds an ingredient to the pantry
 
@@ -32,24 +35,26 @@ class PantryManager():
         for ing in ingList:
             ing = ing.strip()
 
-            # for each ingredient, verify existance in recipe API, then add to the user's pantry if
-            # found
-            search = searchSpoon(ing)
-            if search != False:
-                # add item to pantry if it is not already there
-                if Pantry.query.filter_by(userId=self.currUser,
-                                          ingId=search[1]).first() is None:
-                    DB.session.add(
-                        Pantry(userId=self.currUser, ingId=search[1],
-                               ingName=search[0], ingPic=search[2]))
-                    DB.session.commit()
-                    print('Adding ' + ing + ' to Pantry')
+            if self.countPantry() < pLimit:
+
+                # for each ingredient, verify existance in recipe API, then add to the user's pantry if
+                # found
+                search = searchSpoon(ing)
+                if search != False:
+                    # add item to pantry if it is not already there
+                    if Pantry.query.filter_by(userId=self.currUser,
+                                            ingId=search[1]).first() is None:
+                        DB.session.add(
+                            Pantry(userId=self.currUser, ingId=search[1],
+                                ingName=search[0], ingPic=search[2]))
+                        DB.session.commit()
+                        print('Adding ' + ing + ' to Pantry')
+                    else:
+                        # item is in pantry already
+                        print(ing + ' Exists in Pantry for this user')
                 else:
-                    # item is in pantry already
-                    print(ing + ' Exists in Pantry for this user')
-            else:
-                # item is not verified in spoontacular API search
-                print(ing + ' not found')
+                    # item is not verified in spoontacular API search
+                    print(ing + ' not found')
 
     def getPantry(self):
         ''' returns a string of pantry ingredient names for current user '''
@@ -77,9 +82,6 @@ class PantryManager():
                 pantryItem(item.ingName, item.ingId, item.ingPic))
         ingredientList.sort()
         return ingredientList
-
-    def countPantry(self):
-        return len(Pantry.query.filter_by(userId=self.currUser).all())
 
     def delPantryItem(self, id):
         ''' delete item with target id value '''
