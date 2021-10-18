@@ -27,3 +27,7 @@ app.config.update(SECRET_KEY=AUTH0_CLIENT_SECRET)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cheffy.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 DB = SQLAlchemy(app)
+
+# pantry and favorite limits
+pLimit = 100 # pantry limit
+fLimit = 100 # fav limit

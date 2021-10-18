@@ -43,6 +43,10 @@ def get_token_auth_header():
     Obtains the Access Token from the Authorization Header
     """
     auth = request.headers.get("Authorization", None)
+    if not auth:
+        raise AuthError({"code": "authorization_header_missing",
+                        "description":
+                            "Authorization header is expected"}, 401)
 
     parts = auth.split()
 

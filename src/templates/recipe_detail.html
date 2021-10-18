@@ -41,10 +41,14 @@
                             <input type='hidden' name='similarRec' value="{{similarRecipeID}}">
                             {% if message == "Remove" %}
                                 <span class="me-1">Removed from favorites! </span>
+                            {% elif message == "Full" %}
+                            <span class="me-1">Favorites is full, delete some to add more! </span>
                             {% endif %}
                             <button type="submit" class="btn"><i class="bi bi-heart"></i> </button>
                         </form>
                     {% endif %}
+
+
                 {% endif %}
             </span>
         </div>

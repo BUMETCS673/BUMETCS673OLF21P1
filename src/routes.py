@@ -1,11 +1,11 @@
 from urllib.parse import urlencode
 from flask import render_template, request, redirect, url_for, session
-from config import app
+from config import app, pLimit
 from pantry import PantryManager
 from favoriteRecipes import FavoriteRecipeManager
 from spoon import searchRecipes, getRecipeDetail, getSimilarRecipeID
 from authentication import auth0, AUTH0_AUDIENCE, AUTH0_CALLBACK_URL,\
-    AUTH0_CLIENT_ID, requires_auth
+    AUTH0_CLIENT_ID
 import ast
 
 # /route will show our index template
@@ -58,7 +58,6 @@ def recipeDetail(recipe_id):
     return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID, favs = recId)
 
 @app.route("/profile")
-@requires_auth
 def profile():
     # pantry()
     # set user and create Pantry Manager
@@ -71,10 +70,15 @@ def profile():
     pantryItems = pm.dispPantry()
     favItems = fm.dispFavorites()
 
-    return render_template("profile.html", items = pantryItems, recipes = favItems)
+    
+    addOk = True
+    if pm.countPantry() >= pLimit:
+        addOk = False
+
+
+    return render_template("profile.html", items = pantryItems, recipes = favItems, addOk = addOk)
 
 @app.route("/pantry/add", methods=['POST'])
-@requires_auth
 def pantryAdd():
 
     # set user and create Pantry Manager
@@ -94,7 +98,6 @@ def pantryAdd():
         return redirect(url_for('index'))
 
 @app.route("/pantry/del", methods=['POST'])
-@requires_auth
 def pantryDel():
     # set user and create Pantry Manager
     user = "TestUser"  # for testing purposes
@@ -107,7 +110,6 @@ def pantryDel():
 
 
 @app.route("/pantry/del_all/", methods=['POST'])
-@requires_auth
 def pantryDelAll():
     # set user and create Pantry Manager
     user = "TestUser"  # for testing purposes
@@ -118,14 +120,17 @@ def pantryDelAll():
     return redirect(url_for('profile'))
 
 @app.route('/favoriteThisRecipe', methods = ['POST'])
-@requires_auth
 def favoriteThisRecipe():
     userID = "TestUser"  # for testing purposes
     if session != {}:
         userID = session['profile']['user_id']
         # Take the given id and add it to the database
         db = FavoriteRecipeManager(userID)
-        db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
+        added = db.addFavoriteRecipe(request.form['favId'], request.form['favName'], request.form['favPic'])
+
+    message = "Add"
+    if added == False:
+        message = "Full"
 
     # temps for imported values
     data = ast.literal_eval(request.form["recipe"])
@@ -134,10 +139,9 @@ def favoriteThisRecipe():
 
     # now update the page to inform the user that they added the recipe to the database
     print("route ok")
-    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message="Add")
+    return render_template('recipe_detail.html', recipe=data, similarRecipeID=similarRecipeID,favs = recId, message = message)
 
 @app.route('/remove_recipe', methods = ['POST'])
-@requires_auth
 def removeFromFavorites():
     userID = "TestUser"  # for testing purposes
     if session != {}:
@@ -149,7 +153,6 @@ def removeFromFavorites():
     return redirect(url_for('profile'))
 
 @app.route('/profile_favRemoveAll', methods = ['POST'])
-@requires_auth
 def removeAllFavs():
     userID = "TestUser"  # for testing purposes
     if session != {}:
@@ -160,7 +163,6 @@ def removeAllFavs():
     return redirect(url_for('profile'))
 
 @app.route("/detailDelFav", methods = ['POST'])
-@requires_auth
 def detailDelFav():
 
     userID = "TestUser"  # for testing purposes
