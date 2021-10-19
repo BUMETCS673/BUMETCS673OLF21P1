@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#G:/Documents/CS673/BUMETCS673OLF21P1/src/pantry.py</OriginalElement>
+  <nodes>
+    <node x="246.0" y="697.0">src.pantry.PantryManager</node>
+    <node x="0.0" y="730.0">src.pantry.pantryItem</node>
+    <node x="158.5" y="0.0">typing.Hashable</node>
+    <node x="114.5" y="106.0">object</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.pantry.pantryItem" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-83.5" />
+      <point x="113.0" y="672.0" />
+      <point x="230.0" y="672.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+    <edge source="object" target="typing.Hashable" relationship="INTERFACE">
+      <point x="0.0" y="-270.5" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="src.pantry.PantryManager" target="object" relationship="REALIZATION">
+      <point x="0.0" y="-116.5" />
+      <point x="347.0" y="672.0" />
+      <point x="230.0" y="672.0" />
+      <point x="0.0" y="270.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.9726315789473684" showDependencies="false" x="224.0" y="465.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+
